@@ -18,6 +18,7 @@ class ContactRepository(BaseRepository[Contact]):
         
         return Contact(
             id=data.get('id'),
+            user_id=data.get('user_id'),  # Multi-tenant support
             phone_number=data['phone_number'],
             first_name=data.get('first_name'),
             last_name=data.get('last_name'),
@@ -30,17 +31,31 @@ class ContactRepository(BaseRepository[Contact]):
             custom_fields=data.get('custom_fields', {})
         )
     
-    def find_by_phone_number(self, phone_number: str) -> Optional[Contact]:
-        """Find contact by phone number"""
-        return self.find_one_by_field('phone_number', phone_number)
+    def find_by_phone_number(self, phone_number: str, user_id: str = None) -> Optional[Contact]:
+        """Find contact by phone number for a specific user"""
+        if user_id:
+            contacts = self.find_by_field('user_id', user_id)
+            for contact in contacts:
+                if contact.phone_number == phone_number:
+                    return contact
+            return None
+        else:
+            return self.find_one_by_field('phone_number', phone_number)
     
-    def find_by_status(self, status: ContactStatus) -> List[Contact]:
-        """Find contacts by status"""
-        return self.find_by_field('status', status.value)
+    def find_by_status(self, status: ContactStatus, user_id: str = None) -> List[Contact]:
+        """Find contacts by status for a specific user"""
+        if user_id:
+            contacts = self.find_by_field('user_id', user_id)
+            return [contact for contact in contacts if contact.status == status]
+        else:
+            return self.find_by_field('status', status.value)
     
-    def find_by_tag(self, tag: str) -> List[Contact]:
-        """Find contacts by tag"""
-        contacts = self.find_all()
+    def find_by_tag(self, tag: str, user_id: str = None) -> List[Contact]:
+        """Find contacts by tag for a specific user"""
+        if user_id:
+            contacts = self.find_by_field('user_id', user_id)
+        else:
+            contacts = self.find_all()
         return [contact for contact in contacts if tag in contact.tags]
     
     def update_status(self, contact_id: str, status: ContactStatus) -> Optional[Contact]:

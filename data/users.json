@@ -1,0 +1,34 @@
+[
+  {
+    "id": "66baef9c-7477-4a83-a8e9-233c49ac8f4d",
+    "email": "john@company1.com",
+    "password_hash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+    "first_name": "John",
+    "last_name": "Smith",
+    "company_name": "Tech Solutions Inc.",
+    "phone_number": null,
+    "status": "active",
+    "plan": "free",
+    "settings": {},
+    "api_key": "-GYg5mW0R-W7MEQiHwGM2q0CMRD5pmjxA7ZbIyX4hOI",
+    "created_at": "2025-08-28T03:09:10.377056",
+    "updated_at": "2025-08-28T03:09:10.377079",
+    "last_login_at": null
+  },
+  {
+    "id": "004773f5-e8e3-4ab2-b05f-3bb3c7f04023",
+    "email": "sarah@company2.com",
+    "password_hash": "c6ba91b90d922e159893f46c387e5dc1b3dc5c101a5a4522f03b987177a24a91",
+    "first_name": "Sarah",
+    "last_name": "Johnson",
+    "company_name": "Marketing Pro LLC",
+    "phone_number": null,
+    "status": "active",
+    "plan": "free",
+    "settings": {},
+    "api_key": "_n6L0Ma7Sog1MZLLAaHNkPcT6tyfh69q_qLhjSl89Yw",
+    "created_at": "2025-08-28T03:09:10.377304",
+    "updated_at": "2025-08-28T03:09:10.377305",
+    "last_login_at": null
+  }
+]

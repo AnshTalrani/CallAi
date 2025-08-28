@@ -1,19 +1,26 @@
 from typing import Dict, Any, List, Optional
 from .models.crm import Campaign, CampaignStage, Contact, Conversation
+from .models.user import User
 from .repositories.campaign_repository import CampaignRepository
 from .repositories.contact_repository import ContactRepository
 from .repositories.conversation_repository import ConversationRepository
+from .repositories.call_repository import CallRepository
 
 class CampaignManager:
     """Manages campaign behavior and script generation"""
     
-    def __init__(self):
+    def __init__(self, user: User = None):
+        self.user = user
         self.campaign_repo = CampaignRepository()
         self.contact_repo = ContactRepository()
         self.conversation_repo = ConversationRepository()
+        self.call_repo = CallRepository()
     
     def create_campaign(self, name: str, description: str = None, stages: List[CampaignStage] = None) -> Campaign:
-        """Create a new campaign"""
+        """Create a new campaign for the current user"""
+        if not self.user:
+            raise ValueError("User must be provided to create a campaign")
+        
         if stages is None:
             stages = [
                 CampaignStage.INTRODUCTION,
@@ -24,6 +31,7 @@ class CampaignManager:
             ]
         
         campaign = Campaign(
+            user_id=self.user.id,
             name=name,
             description=description,
             stages=stages
@@ -36,6 +44,10 @@ class CampaignManager:
         campaign = self.campaign_repo.find_by_id(campaign_id)
         if not campaign:
             raise ValueError(f"Campaign {campaign_id} not found")
+        
+        # Verify campaign belongs to current user
+        if self.user and campaign.user_id != self.user.id:
+            raise ValueError(f"Campaign {campaign_id} does not belong to current user")
         
         script_template = campaign.script_template.get(stage.value, {})
         script = script_template.get('script', f"Default script for {stage.value}")
