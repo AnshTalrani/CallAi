@@ -1,5 +1,9 @@
 import os
+from dotenv import load_dotenv
 from langchain.chat_models import ChatOpenAI
+
+# Load environment variables from .env file
+load_dotenv()
 from langchain.memory import ConversationBufferMemory
 from langchain.tools import Tool
 from langchain.utilities import WikipediaAPIWrapper, DuckDuckGoSearchAPIWrapper
