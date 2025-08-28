@@ -1,3 +1,4 @@
+import os
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferMemory
 from langchain.tools import Tool
@@ -7,10 +8,16 @@ from langchain.agents import initialize_agent, AgentType
 class LLMThinker:
     def __init__(self):
         print("Initializing LLM...")
+        
+        # Get configuration from environment variables
+        model_name = os.environ.get('LLM_MODEL_NAME', 'meta-llama-3.1-8b-instruct')
+        api_base = os.environ.get('LLM_API_BASE', 'http://localhost:1234/v1')
+        api_key = os.environ.get('LLM_API_KEY', 'not-needed')
+        
         self.chat = ChatOpenAI(
-            model_name="meta-llama-3.1-8b-instruct",
-            openai_api_base="http://192.168.1.6:1234/v1",
-            openai_api_key="not-needed",
+            model_name=model_name,
+            openai_api_base=api_base,
+            openai_api_key=api_key,
             streaming=True
         )
         

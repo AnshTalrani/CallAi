@@ -88,23 +88,34 @@ class CampaignManager:
         
         stage_rules = campaign.script_template.get(conversation.stage.value, {}).get('transition_rules', {})
         
-        # Check transition conditions
-        if 'keywords' in stage_rules:
-            keywords = stage_rules['keywords']
-            if any(keyword.lower() in user_input.lower() for keyword in keywords):
-                return True
+        # All conditions must be met for transition (AND logic)
+        conditions_met = True
         
-        if 'sentiment_threshold' in stage_rules and sentiment_score is not None:
-            threshold = stage_rules['sentiment_threshold']
-            if sentiment_score >= threshold:
-                return True
-        
+        # Check minimum turns requirement
         if 'min_turns' in stage_rules:
             min_turns = stage_rules['min_turns']
-            if len(conversation.transcript) >= min_turns:
+            if len(conversation.transcript) < min_turns:
+                conditions_met = False
+        
+        # Check keyword requirement
+        if 'keywords' in stage_rules and conditions_met:
+            keywords = stage_rules['keywords']
+            if not any(keyword.lower() in user_input.lower() for keyword in keywords):
+                conditions_met = False
+        
+        # Check sentiment threshold requirement
+        if 'sentiment_threshold' in stage_rules and sentiment_score is not None and conditions_met:
+            threshold = stage_rules['sentiment_threshold']
+            if sentiment_score < threshold:
+                conditions_met = False
+        
+        # Check for explicit transition signals
+        if 'transition_signals' in stage_rules and conditions_met:
+            signals = stage_rules['transition_signals']
+            if any(signal.lower() in user_input.lower() for signal in signals):
                 return True
         
-        return False
+        return conditions_met
     
     def extract_data_from_input(self, campaign_id: str, user_input: str) -> Dict[str, Any]:
         """Extract relevant data from user input based on campaign configuration"""
@@ -182,6 +193,9 @@ class CampaignManager:
     
     def create_sample_campaign(self, campaign_type: str = "sales") -> Campaign:
         """Create a sample campaign based on type"""
+        if not self.user:
+            raise ValueError("User must be provided to create a campaign")
+        
         if campaign_type == "sales":
             return self._create_sales_campaign()
         elif campaign_type == "support":
@@ -232,6 +246,7 @@ class CampaignManager:
         }
         
         campaign = Campaign(
+            user_id=self.user.id,
             name="Sales Outreach Campaign",
             description="A comprehensive sales campaign for product outreach",
             stages=[
@@ -281,6 +296,7 @@ class CampaignManager:
         }
         
         campaign = Campaign(
+            user_id=self.user.id,
             name="Customer Support Follow-up",
             description="Support campaign for following up on customer issues",
             stages=[
@@ -329,6 +345,7 @@ class CampaignManager:
         }
         
         campaign = Campaign(
+            user_id=self.user.id,
             name="Customer Satisfaction Survey",
             description="Survey campaign for gathering customer feedback",
             stages=[

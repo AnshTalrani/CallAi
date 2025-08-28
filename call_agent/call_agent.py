@@ -65,26 +65,26 @@ class CallAgent:
     def start_call(self, contact_id: str, campaign_id: str, phone_number: str) -> bool:
         """Start a new call"""
         try:
-                    # Get contact and campaign with user validation
-        contact = self.contact_repo.find_by_id(contact_id)
-        if not contact:
-            print(f"Contact {contact_id} not found")
-            return False
-        
-        # Verify contact belongs to current user
-        if self.user and contact.user_id != self.user.id:
-            print(f"Contact {contact_id} does not belong to current user")
-            return False
-        
-        campaign = self.campaign_manager.campaign_repo.find_by_id(campaign_id)
-        if not campaign:
-            print(f"Campaign {campaign_id} not found")
-            return False
-        
-        # Verify campaign belongs to current user
-        if self.user and campaign.user_id != self.user.id:
-            print(f"Campaign {campaign_id} does not belong to current user")
-            return False
+            # Get contact and campaign with user validation
+            contact = self.contact_repo.find_by_id(contact_id)
+            if not contact:
+                print(f"Contact {contact_id} not found")
+                return False
+            
+            # Verify contact belongs to current user
+            if self.user and contact.user_id != self.user.id:
+                print(f"Contact {contact_id} does not belong to current user")
+                return False
+            
+            campaign = self.campaign_manager.campaign_repo.find_by_id(campaign_id)
+            if not campaign:
+                print(f"Campaign {campaign_id} not found")
+                return False
+            
+            # Verify campaign belongs to current user
+            if self.user and campaign.user_id != self.user.id:
+                print(f"Campaign {campaign_id} does not belong to current user")
+                return False
             
             # Create call record with user context
             call = Call(
@@ -113,13 +113,14 @@ class CallAgent:
             self.current_contact = contact
             self.current_campaign = campaign
             
-            # Initialize call context
+            # Initialize call context from campaign or use defaults
+            campaign_context = campaign.script_template.get('call_context', {})
             self.call_context = {
-                'agent_name': 'Sarah',
-                'company_name': 'TechCorp',
+                'agent_name': campaign_context.get('agent_name', 'Sarah'),
+                'company_name': campaign_context.get('company_name', 'TechCorp'),
                 'contact_name': f"{contact.first_name or 'there'}",
-                'product_name': 'Business Solution Pro',
-                'available_times': 'tomorrow at 2 PM or Friday at 10 AM'
+                'product_name': campaign_context.get('product_name', 'Business Solution Pro'),
+                'available_times': campaign_context.get('available_times', 'tomorrow at 2 PM or Friday at 10 AM')
             }
             
             print(f"Call started with {contact.first_name or 'contact'} at {phone_number}")
@@ -194,8 +195,11 @@ class CallAgent:
         if not self.current_conversation:
             return "I'm sorry, but I'm not currently in a call. Please start a call first."
         
+        if not user_text or not user_text.strip():
+            return "I didn't catch that. Could you please repeat?"
+        
         try:
-            # Add user input to transcript
+            # Add user input to transcript and persist immediately
             timestamp = time.time()
             self.conversation_repo.add_transcript_entry(
                 self.current_conversation.id,
@@ -204,19 +208,25 @@ class CallAgent:
                 timestamp
             )
             
+            # Persist conversation state immediately
+            self.conversation_repo.update(self.current_conversation)
+            
             # Extract data from user input
             extracted_data = self.campaign_manager.extract_data_from_input(
                 self.current_campaign.id,
                 user_text
             )
             
-            # Update collected data
+            # Update collected data and persist
             for key, value in extracted_data.items():
                 self.conversation_repo.update_collected_data(
                     self.current_conversation.id,
                     key,
                     value
                 )
+            
+            # Persist conversation state again after data updates
+            self.conversation_repo.update(self.current_conversation)
             
             # Check if we should transition to next stage
             should_transition = self.campaign_manager.should_transition_stage(
@@ -276,6 +286,9 @@ Keep your response conversational and under 2-3 sentences.
             
         except Exception as e:
             print(f"Error processing user input: {e}")
+            # Log the error for debugging but don't expose it to user
+            import logging
+            logging.error(f"Error in process_user_input: {e}")
             return "I'm sorry, I'm having trouble processing that. Could you please repeat?"
     
     def start_recording(self, output_file: str = "call_recording.wav"):
@@ -302,18 +315,30 @@ Keep your response conversational and under 2-3 sentences.
     
     def _record_audio(self):
         """Internal method to record audio"""
+        stream = None
+        wf = None
         try:
-            with sd.InputStream(samplerate=self.sample_rate, channels=1, dtype=np.int16) as stream:
-                with wave.open(self.recording_file, 'wb') as wf:
-                    wf.setnchannels(1)
-                    wf.setsampwidth(2)
-                    wf.setframerate(self.sample_rate)
-                    
-                    while self.is_recording:
-                        audio_data, _ = stream.read(1024)
-                        wf.writeframes(audio_data.tobytes())
+            stream = sd.InputStream(samplerate=self.sample_rate, channels=1, dtype=np.int16)
+            stream.start()
+            
+            wf = wave.open(self.recording_file, 'wb')
+            wf.setnchannels(1)
+            wf.setsampwidth(2)
+            wf.setframerate(self.sample_rate)
+            
+            while self.is_recording:
+                audio_data, _ = stream.read(1024)
+                wf.writeframes(audio_data.tobytes())
+                
         except Exception as e:
             print(f"Error recording audio: {e}")
+        finally:
+            # Ensure proper cleanup
+            if wf:
+                wf.close()
+            if stream:
+                stream.stop()
+                stream.close()
     
     def conduct_call(self, contact_id: str, campaign_id: str, phone_number: str):
         """Conduct a complete call from start to finish"""

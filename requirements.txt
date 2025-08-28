@@ -27,3 +27,4 @@ pvrecorder==1.2.5
 # Multi-tenant CRM dependencies
 flask>=2.3.0  # For API server
 flask-cors>=4.0.0  # For CORS support
+flask-limiter>=3.5.0  # For rate limiting
