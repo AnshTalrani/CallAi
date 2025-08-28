@@ -13,6 +13,10 @@ import threading
 import time
 import re
 from functools import wraps
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Ensure project root is on Python path (so `call_agent` package is importable)
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))

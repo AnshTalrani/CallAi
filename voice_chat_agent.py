@@ -1,6 +1,11 @@
+import os
+from dotenv import load_dotenv
 from voice_recognition import VoiceRecognizer, select_audio_device
 from llm_thinking import LLMThinker
 from text_to_speech import TTSGenerator
+
+# Load environment variables from .env file
+load_dotenv()
 
 class VoiceAgent:
     def __init__(self, device_id=1):
