@@ -3,7 +3,7 @@
 Call Agent API - REST API for the call agent system
 """
 
-from flask import Flask, request, jsonify, session
+from flask import Flask, request, jsonify, session, render_template
 from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
@@ -24,7 +24,7 @@ from call_agent.repositories.contact_repository import ContactRepository
 from call_agent.repositories.conversation_repository import ConversationRepository
 from call_agent.user_manager import UserManager
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates', static_folder='static')
 app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-this-in-production')
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True
@@ -63,6 +63,16 @@ def get_current_user():
     if user_id:
         return user_manager.get_user_by_id(user_id)
     return None
+
+# ---------------- UI ROUTES ----------------
+@app.route('/', methods=['GET'])
+def index_page():
+    """Serve the web UI"""
+    try:
+        return render_template('index.html')
+    except Exception:
+        # If template not found yet, provide a minimal fallback
+        return "UI not found. Please ensure templates/index.html exists.", 200
 
 def validate_phone_number(phone_number: str) -> bool:
     """Validate phone number format"""
