@@ -1,4 +1,5 @@
 import sys
+import os
 from typing import Optional
 import numpy as np
 from transformers import WhisperProcessor, WhisperForConditionalGeneration
@@ -48,11 +49,18 @@ class VoiceRecognizer:
     def _setup_whisper(self) -> None:
         logging.info("Loading Whisper model...")
         try:
-            self.processor = WhisperProcessor.from_pretrained("openai/whisper-small")
-            self.model = WhisperForConditionalGeneration.from_pretrained("openai/whisper-small")
+            # Use environment variable for model size if available
+            model_size = os.environ.get('WHISPER_MODEL_SIZE', 'small')
+            model_name = f"openai/whisper-{model_size}"
+            
+            self.processor = WhisperProcessor.from_pretrained(model_name)
+            self.model = WhisperForConditionalGeneration.from_pretrained(model_name)
+            
             if torch.cuda.is_available():
                 self.model = self.model.to("cuda")
                 logging.info("Using CUDA for inference")
+            else:
+                logging.info("Using CPU for inference")
         except Exception as e:
             logging.error(f"Error loading Whisper model: {e}")
             raise

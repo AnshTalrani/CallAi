@@ -85,6 +85,36 @@ class BaseRepository(ABC, Generic[T]):
                 return True
         return False
     
+    def transaction(self, operations: list) -> bool:
+        """Execute multiple operations in a transaction-like manner"""
+        try:
+            data = self._load_data()
+            original_data = data.copy()
+            
+            for operation in operations:
+                op_type = operation.get('type')
+                entity = operation.get('entity')
+                
+                if op_type == 'create':
+                    data.append(entity.to_dict())
+                elif op_type == 'update':
+                    for i, item in enumerate(data):
+                        if item.get('id') == entity.id:
+                            data[i] = entity.to_dict()
+                            break
+                elif op_type == 'delete':
+                    for i, item in enumerate(data):
+                        if item.get('id') == entity:
+                            del data[i]
+                            break
+            
+            self._save_data(data)
+            return True
+        except Exception as e:
+            # Rollback by restoring original data
+            self._save_data(original_data)
+            raise e
+    
     def find_by_field(self, field: str, value: Any) -> List[T]:
         """Find entities by field value"""
         data = self._load_data()
