@@ -19,14 +19,30 @@ def create_sample_data():
     """Create sample contacts and campaigns for demonstration"""
     print("Creating sample data...")
     
-    # Initialize repositories
+    # Create a sample user for demonstration
+    from call_agent.user_manager import UserManager
+    from call_agent.models.user import User, UserStatus, UserPlan
+    
+    user_manager = UserManager()
+    
+    # Create a demo user
+    demo_user = user_manager.register_user(
+        email="demo@example.com",
+        password="demo123",
+        first_name="Demo",
+        last_name="User",
+        company_name="Demo Company"
+    )
+    
+    # Initialize repositories with user context
     contact_repo = ContactRepository()
-    campaign_manager = CampaignManager()
+    campaign_manager = CampaignManager(user=demo_user)
     
     # Create sample contacts
     contacts = []
     
     contact1 = Contact(
+        user_id=demo_user.id,
         phone_number="+1234567890",
         first_name="John",
         last_name="Doe",
@@ -37,6 +53,7 @@ def create_sample_data():
     contacts.append(contact_repo.create(contact1))
     
     contact2 = Contact(
+        user_id=demo_user.id,
         phone_number="+1987654321",
         first_name="Jane",
         last_name="Smith",
@@ -64,8 +81,8 @@ def main():
     # Select audio device
     device_id = select_audio_device()
     
-    # Initialize call agent
-    agent = CallAgent(device_id=device_id)
+    # Initialize call agent with user context
+    agent = CallAgent(user=demo_user, device_id=device_id)
     
     try:
         while True:
