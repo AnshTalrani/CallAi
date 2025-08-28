@@ -6,6 +6,15 @@ This script demonstrates how the multi-tenant CRM system works with data isolati
 between different users (clients).
 """
 
+import os
+import sys
+
+# Ensure project root is on path so `call_agent` can be imported after move
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, os.pardir))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 from call_agent.user_manager import UserManager
 from call_agent.campaign_manager import CampaignManager
 from call_agent.models.user import UserPlan

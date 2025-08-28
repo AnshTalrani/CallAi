@@ -2,6 +2,15 @@ from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 import json
 from datetime import datetime
+import os
+import sys
+
+# Ensure project root is on Python path for imports
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, os.pardir))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 from call_agent.user_manager import UserManager
 from call_agent.campaign_manager import CampaignManager
 from call_agent.models.user import UserStatus, UserPlan

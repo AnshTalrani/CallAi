@@ -14,8 +14,11 @@ import time
 import re
 from functools import wraps
 
-# Add the current directory to Python path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# Ensure project root is on Python path (so `call_agent` package is importable)
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, os.pardir))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
 
 from call_agent.call_agent import CallAgent
 from call_agent.campaign_manager import CampaignManager
@@ -24,7 +27,9 @@ from call_agent.repositories.contact_repository import ContactRepository
 from call_agent.repositories.conversation_repository import ConversationRepository
 from call_agent.user_manager import UserManager
 
-app = Flask(__name__, template_folder='templates', static_folder='static')
+TEMPLATES_DIR = os.path.abspath(os.path.join(PROJECT_ROOT, 'templates'))
+STATIC_DIR = os.path.abspath(os.path.join(PROJECT_ROOT, 'static'))
+app = Flask(__name__, template_folder=TEMPLATES_DIR, static_folder=STATIC_DIR)
 app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-this-in-production')
 app.config['SESSION_COOKIE_SECURE'] = True
 app.config['SESSION_COOKIE_HTTPONLY'] = True

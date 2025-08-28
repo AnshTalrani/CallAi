@@ -7,8 +7,11 @@ import sys
 import os
 from voice_recognition import select_audio_device
 
-# Add the current directory to Python path to import call_agent
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+# Ensure project root is on path so `call_agent` can be imported after move
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, os.pardir))
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
 
 from call_agent.call_agent import CallAgent
 from call_agent.campaign_manager import CampaignManager
