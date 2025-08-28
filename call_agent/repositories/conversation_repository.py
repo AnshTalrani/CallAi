@@ -18,6 +18,7 @@ class ConversationRepository(BaseRepository[Conversation]):
         
         return Conversation(
             id=data.get('id'),
+            user_id=data.get('user_id'),  # Multi-tenant support
             contact_id=data['contact_id'],
             campaign_id=data['campaign_id'],
             call_id=data['call_id'],
@@ -30,21 +31,40 @@ class ConversationRepository(BaseRepository[Conversation]):
             updated_at=updated_at
         )
     
-    def find_by_contact_id(self, contact_id: str) -> List[Conversation]:
-        """Find conversations by contact ID"""
-        return self.find_by_field('contact_id', contact_id)
+    def find_by_contact_id(self, contact_id: str, user_id: str = None) -> List[Conversation]:
+        """Find conversations by contact ID for a specific user"""
+        if user_id:
+            conversations = self.find_by_field('user_id', user_id)
+            return [conv for conv in conversations if conv.contact_id == contact_id]
+        else:
+            return self.find_by_field('contact_id', contact_id)
     
-    def find_by_campaign_id(self, campaign_id: str) -> List[Conversation]:
-        """Find conversations by campaign ID"""
-        return self.find_by_field('campaign_id', campaign_id)
+    def find_by_campaign_id(self, campaign_id: str, user_id: str = None) -> List[Conversation]:
+        """Find conversations by campaign ID for a specific user"""
+        if user_id:
+            conversations = self.find_by_field('user_id', user_id)
+            return [conv for conv in conversations if conv.campaign_id == campaign_id]
+        else:
+            return self.find_by_field('campaign_id', campaign_id)
     
-    def find_by_call_id(self, call_id: str) -> Optional[Conversation]:
-        """Find conversation by call ID"""
-        return self.find_one_by_field('call_id', call_id)
+    def find_by_call_id(self, call_id: str, user_id: str = None) -> Optional[Conversation]:
+        """Find conversation by call ID for a specific user"""
+        if user_id:
+            conversations = self.find_by_field('user_id', user_id)
+            for conversation in conversations:
+                if conversation.call_id == call_id:
+                    return conversation
+            return None
+        else:
+            return self.find_one_by_field('call_id', call_id)
     
-    def find_by_stage(self, stage: CampaignStage) -> List[Conversation]:
-        """Find conversations by stage"""
-        return self.find_by_field('stage', stage.value)
+    def find_by_stage(self, stage: CampaignStage, user_id: str = None) -> List[Conversation]:
+        """Find conversations by stage for a specific user"""
+        if user_id:
+            conversations = self.find_by_field('user_id', user_id)
+            return [conv for conv in conversations if conv.stage == stage]
+        else:
+            return self.find_by_field('stage', stage.value)
     
     def update_stage(self, conversation_id: str, stage: CampaignStage) -> Optional[Conversation]:
         """Update conversation stage"""

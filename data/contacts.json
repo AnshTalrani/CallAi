@@ -1,0 +1,70 @@
+[
+  {
+    "id": "67815791-27cb-4441-a006-efda18bfc574",
+    "user_id": "66baef9c-7477-4a83-a8e9-233c49ac8f4d",
+    "phone_number": "+1234567890",
+    "first_name": "Alice",
+    "last_name": "Tech",
+    "email": "alice@techcorp.com",
+    "company": "TechCorp",
+    "status": "new",
+    "created_at": "2025-08-28T03:09:10.378901",
+    "updated_at": "2025-08-28T03:09:10.378904",
+    "tags": [
+      "tech",
+      "enterprise"
+    ],
+    "custom_fields": {}
+  },
+  {
+    "id": "5fb4e9ab-8956-4afb-8f35-494174648efc",
+    "user_id": "66baef9c-7477-4a83-a8e9-233c49ac8f4d",
+    "phone_number": "+1234567891",
+    "first_name": "Bob",
+    "last_name": "Developer",
+    "email": "bob@devstartup.com",
+    "company": "DevStartup",
+    "status": "new",
+    "created_at": "2025-08-28T03:09:10.379043",
+    "updated_at": "2025-08-28T03:09:10.379043",
+    "tags": [
+      "startup",
+      "tech"
+    ],
+    "custom_fields": {}
+  },
+  {
+    "id": "30b8e3d1-eefa-4837-a205-6bc2634f6bd8",
+    "user_id": "004773f5-e8e3-4ab2-b05f-3bb3c7f04023",
+    "phone_number": "+1987654321",
+    "first_name": "Carol",
+    "last_name": "Business",
+    "email": "carol@smallbiz.com",
+    "company": "SmallBiz Inc.",
+    "status": "new",
+    "created_at": "2025-08-28T03:09:10.379319",
+    "updated_at": "2025-08-28T03:09:10.379320",
+    "tags": [
+      "small-business",
+      "local"
+    ],
+    "custom_fields": {}
+  },
+  {
+    "id": "307c0008-d09c-4472-a1e4-bfddd2ce4850",
+    "user_id": "004773f5-e8e3-4ab2-b05f-3bb3c7f04023",
+    "phone_number": "+1987654322",
+    "first_name": "David",
+    "last_name": "Restaurant",
+    "email": "david@restaurant.com",
+    "company": "Local Restaurant",
+    "status": "new",
+    "created_at": "2025-08-28T03:09:10.379577",
+    "updated_at": "2025-08-28T03:09:10.379577",
+    "tags": [
+      "restaurant",
+      "local"
+    ],
+    "custom_fields": {}
+  }
+]

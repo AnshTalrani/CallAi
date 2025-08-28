@@ -30,8 +30,9 @@ class CampaignStage(Enum):
 
 @dataclass
 class Contact:
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str  # Multi-tenant: belongs to a specific user
     phone_number: str
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     first_name: Optional[str] = None
     last_name: Optional[str] = None
     email: Optional[str] = None
@@ -45,6 +46,7 @@ class Contact:
     def to_dict(self) -> Dict[str, Any]:
         return {
             'id': self.id,
+            'user_id': self.user_id,
             'phone_number': self.phone_number,
             'first_name': self.first_name,
             'last_name': self.last_name,
@@ -59,10 +61,11 @@ class Contact:
 
 @dataclass
 class Conversation:
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str  # Multi-tenant: belongs to a specific user
     contact_id: str
     campaign_id: str
     call_id: str
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     stage: CampaignStage = CampaignStage.INTRODUCTION
     transcript: List[Dict[str, Any]] = field(default_factory=list)
     collected_data: Dict[str, Any] = field(default_factory=dict)
@@ -86,6 +89,7 @@ class Conversation:
     def to_dict(self) -> Dict[str, Any]:
         return {
             'id': self.id,
+            'user_id': self.user_id,
             'contact_id': self.contact_id,
             'campaign_id': self.campaign_id,
             'call_id': self.call_id,
@@ -100,10 +104,11 @@ class Conversation:
 
 @dataclass
 class Call:
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str  # Multi-tenant: belongs to a specific user
     contact_id: str
     campaign_id: str
     phone_number: str
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     status: CallStatus = CallStatus.SCHEDULED
     scheduled_time: Optional[datetime] = None
     start_time: Optional[datetime] = None
@@ -117,6 +122,7 @@ class Call:
     def to_dict(self) -> Dict[str, Any]:
         return {
             'id': self.id,
+            'user_id': self.user_id,
             'contact_id': self.contact_id,
             'campaign_id': self.campaign_id,
             'phone_number': self.phone_number,
@@ -133,8 +139,9 @@ class Call:
 
 @dataclass
 class Campaign:
-    id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    user_id: str  # Multi-tenant: belongs to a specific user
     name: str
+    id: str = field(default_factory=lambda: str(uuid.uuid4()))
     description: Optional[str] = None
     stages: List[CampaignStage] = field(default_factory=list)
     script_template: Dict[str, Any] = field(default_factory=dict)
@@ -146,6 +153,7 @@ class Campaign:
     def to_dict(self) -> Dict[str, Any]:
         return {
             'id': self.id,
+            'user_id': self.user_id,
             'name': self.name,
             'description': self.description,
             'stages': [stage.value for stage in self.stages],

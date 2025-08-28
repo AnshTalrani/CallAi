@@ -23,3 +23,7 @@ wikipedia>=1.4.0  # For Wikipedia API access
 duckduckgo-search>=4.1.1  # For DuckDuckGo search capability
 
 pvrecorder==1.2.5
+
+# Multi-tenant CRM dependencies
+flask>=2.3.0  # For API server
+flask-cors>=4.0.0  # For CORS support

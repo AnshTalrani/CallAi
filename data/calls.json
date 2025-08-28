@@ -1,0 +1,50 @@
+[
+  {
+    "id": "03bcbdbe-90e0-41e7-a8fa-676f7404f8ec",
+    "user_id": "66baef9c-7477-4a83-a8e9-233c49ac8f4d",
+    "contact_id": "67815791-27cb-4441-a006-efda18bfc574",
+    "campaign_id": "a06a47e5-1698-4257-90a1-b5d77f498db7",
+    "phone_number": "+1234567890",
+    "status": "completed",
+    "scheduled_time": null,
+    "start_time": null,
+    "end_time": null,
+    "duration_seconds": 300,
+    "recording_url": null,
+    "notes": null,
+    "created_at": "2025-08-28T03:09:10.379892",
+    "updated_at": "2025-08-28T03:09:10.379892"
+  },
+  {
+    "id": "06e4e404-06aa-417a-b1e5-4854e1713a39",
+    "user_id": "66baef9c-7477-4a83-a8e9-233c49ac8f4d",
+    "contact_id": "5fb4e9ab-8956-4afb-8f35-494174648efc",
+    "campaign_id": "a06a47e5-1698-4257-90a1-b5d77f498db7",
+    "phone_number": "+1234567891",
+    "status": "scheduled",
+    "scheduled_time": null,
+    "start_time": null,
+    "end_time": null,
+    "duration_seconds": null,
+    "recording_url": null,
+    "notes": null,
+    "created_at": "2025-08-28T03:09:10.379972",
+    "updated_at": "2025-08-28T03:09:10.379973"
+  },
+  {
+    "id": "9f48e58d-2adf-42b5-9352-4e60bd60fd4f",
+    "user_id": "004773f5-e8e3-4ab2-b05f-3bb3c7f04023",
+    "contact_id": "30b8e3d1-eefa-4837-a205-6bc2634f6bd8",
+    "campaign_id": "c3a63128-e56e-4619-b6d7-ddf415510dd7",
+    "phone_number": "+1987654321",
+    "status": "completed",
+    "scheduled_time": null,
+    "start_time": null,
+    "end_time": null,
+    "duration_seconds": 450,
+    "recording_url": null,
+    "notes": null,
+    "created_at": "2025-08-28T03:09:10.380329",
+    "updated_at": "2025-08-28T03:09:10.380329"
+  }
+]

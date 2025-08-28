@@ -17,6 +17,7 @@ class CampaignRepository(BaseRepository[Campaign]):
         
         return Campaign(
             id=data.get('id'),
+            user_id=data.get('user_id'),  # Multi-tenant support
             name=data['name'],
             description=data.get('description'),
             stages=stages,
@@ -27,14 +28,24 @@ class CampaignRepository(BaseRepository[Campaign]):
             is_active=data.get('is_active', True)
         )
     
-    def find_active_campaigns(self) -> List[Campaign]:
-        """Find all active campaigns"""
-        campaigns = self.find_all()
+    def find_active_campaigns(self, user_id: str = None) -> List[Campaign]:
+        """Find all active campaigns for a specific user"""
+        if user_id:
+            campaigns = self.find_by_field('user_id', user_id)
+        else:
+            campaigns = self.find_all()
         return [campaign for campaign in campaigns if campaign.is_active]
     
-    def find_by_name(self, name: str) -> Optional[Campaign]:
-        """Find campaign by name"""
-        return self.find_one_by_field('name', name)
+    def find_by_name(self, name: str, user_id: str = None) -> Optional[Campaign]:
+        """Find campaign by name for a specific user"""
+        if user_id:
+            campaigns = self.find_by_field('user_id', user_id)
+            for campaign in campaigns:
+                if campaign.name == name:
+                    return campaign
+            return None
+        else:
+            return self.find_one_by_field('name', name)
     
     def activate_campaign(self, campaign_id: str) -> Optional[Campaign]:
         """Activate a campaign"""
