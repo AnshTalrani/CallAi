@@ -5,119 +5,834 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Call Agent Dashboard</title>
     <link rel="stylesheet" href="/static/styles.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
     <header class="app-header">
-        <div class="brand">Call Agent</div>
+        <div class="brand">
+            <i class="fas fa-phone-alt"></i>
+            <span>Call Agent Pro</span>
+        </div>
         <nav class="nav">
-            <button class="tab-btn" data-tab="auth">Auth</button>
-            <button class="tab-btn" data-tab="demo-chat">Demo Chat</button>
-            <button class="tab-btn" data-tab="registration">Client Registration</button>
-            <button class="tab-btn" data-tab="crm">CRM</button>
-            <button class="tab-btn" data-tab="campaigns">Campaigns</button>
+            <button class="tab-btn active" data-tab="auth">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Authentication</span>
+            </button>
+            <button class="tab-btn" data-tab="demo-chat">
+                <i class="fas fa-comments"></i>
+                <span>Demo Chat</span>
+            </button>
+            <button class="tab-btn" data-tab="registration">
+                <i class="fas fa-user-plus"></i>
+                <span>Contacts</span>
+            </button>
+            <button class="tab-btn" data-tab="crm">
+                <i class="fas fa-users"></i>
+                <span>CRM</span>
+            </button>
+            <button class="tab-btn" data-tab="campaigns">
+                <i class="fas fa-bullhorn"></i>
+                <span>Campaigns</span>
+            </button>
         </nav>
-        <div class="profile" id="profileBox"></div>
+        <div class="profile" id="profileBox">
+            <i class="fas fa-user-circle"></i>
+            <span>Not logged in</span>
+        </div>
     </header>
 
     <main class="container">
         <!-- Auth Tab -->
         <section id="tab-auth" class="tab active">
-            <h2>Authentication</h2>
-            <div class="card grid-2">
-                <form id="loginForm">
-                    <h3>Login</h3>
-                    <label>Email<input type="email" name="email" required /></label>
-                    <label>Password<input type="password" name="password" required /></label>
-                    <button type="submit">Login</button>
-                </form>
-                <form id="registerForm">
-                    <h3>Register</h3>
-                    <label>First name<input type="text" name="first_name" /></label>
-                    <label>Last name<input type="text" name="last_name" /></label>
-                    <label>Company<input type="text" name="company_name" /></label>
-                    <label>Email<input type="email" name="email" required /></label>
-                    <label>Password<input type="password" name="password" required /></label>
-                    <button type="submit">Register</button>
-                </form>
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h1><i class="fas fa-lock"></i> Welcome to Call Agent Pro</h1>
+                    <p>Sign in to your account or create a new one to get started</p>
+                </div>
+                
+                <div class="auth-forms">
+                    <div class="auth-card">
+                        <div class="auth-card-header">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <h3>Sign In</h3>
+                        </div>
+                        <form id="loginForm" class="auth-form">
+                            <div class="form-group">
+                                <label for="login-email">
+                                    <i class="fas fa-envelope"></i>
+                                    Email Address
+                                </label>
+                                <input type="email" id="login-email" name="email" required placeholder="Enter your email" />
+                            </div>
+                            <div class="form-group">
+                                <label for="login-password">
+                                    <i class="fas fa-lock"></i>
+                                    Password
+                                </label>
+                                <input type="password" id="login-password" name="password" required placeholder="Enter your password" />
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt"></i>
+                                Sign In
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="auth-card">
+                        <div class="auth-card-header">
+                            <i class="fas fa-user-plus"></i>
+                            <h3>Create Account</h3>
+                        </div>
+                        <form id="registerForm" class="auth-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="register-first-name">
+                                        <i class="fas fa-user"></i>
+                                        First Name
+                                    </label>
+                                    <input type="text" id="register-first-name" name="first_name" placeholder="Enter first name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="register-last-name">
+                                        <i class="fas fa-user"></i>
+                                        Last Name
+                                    </label>
+                                    <input type="text" id="register-last-name" name="last_name" placeholder="Enter last name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-company">
+                                    <i class="fas fa-building"></i>
+                                    Company Name
+                                </label>
+                                <input type="text" id="register-company" name="company_name" placeholder="Enter company name" />
+                            </div>
+                            <div class="form-group">
+                                <label for="register-email">
+                                    <i class="fas fa-envelope"></i>
+                                    Email Address
+                                </label>
+                                <input type="email" id="register-email" name="email" required placeholder="Enter your email" />
+                            </div>
+                            <div class="form-group">
+                                <label for="register-password">
+                                    <i class="fas fa-lock"></i>
+                                    Password
+                                </label>
+                                <input type="password" id="register-password" name="password" required placeholder="Create a password" />
+                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-user-plus"></i>
+                                Create Account
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Demo Chat Tab -->
         <section id="tab-demo-chat" class="tab">
-            <h2>Demo Chat with Bot</h2>
-            <div class="card">
-                <div class="flex gap">
-                    <select id="demoContactSelect"></select>
-                    <select id="demoCampaignSelect"></select>
-                    <input id="demoPhone" type="text" placeholder="Your phone (E.164)" />
-                    <button id="startCallBtn">Start Call</button>
-                    <button id="endCallBtn" class="secondary">End Call</button>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2><i class="fas fa-comments"></i> Demo Chat with AI Agent</h2>
+                    <p>Test the AI agent's conversation capabilities</p>
                 </div>
-                <div class="chat" id="chatWindow"></div>
-                <div class="flex gap">
-                    <input id="chatInput" type="text" placeholder="Type a message..." />
-                    <button id="sendMsgBtn">Send</button>
+                
+                <div class="chat-controls">
+                    <div class="control-group">
+                        <label for="demoContactSelect">Select Contact:</label>
+                        <select id="demoContactSelect" class="form-control">
+                            <option value="">Choose a contact...</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="demoCampaignSelect">Select Campaign:</label>
+                        <select id="demoCampaignSelect" class="form-control">
+                            <option value="">Choose a campaign...</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label for="demoPhone">Phone Number:</label>
+                        <input id="demoPhone" type="text" placeholder="+15551234567" class="form-control" />
+                    </div>
+                    <div class="control-buttons">
+                        <button id="startCallBtn" class="btn btn-primary">
+                            <i class="fas fa-phone"></i>
+                            Start Call
+                        </button>
+                        <button id="endCallBtn" class="btn btn-danger">
+                            <i class="fas fa-phone-slash"></i>
+                            End Call
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chat-window" id="chatWindow">
+                    <div class="chat-placeholder">
+                        <i class="fas fa-comments"></i>
+                        <p>Start a call to begin chatting with the AI agent</p>
+                    </div>
+                </div>
+
+                <div class="chat-input">
+                    <input id="chatInput" type="text" placeholder="Type your message here..." class="form-control" />
+                    <button id="sendMsgBtn" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Send
+                    </button>
                 </div>
             </div>
         </section>
 
         <!-- Registration Tab (Contacts) -->
         <section id="tab-registration" class="tab">
-            <h2>Register Client Phone Numbers</h2>
-            <div class="card">
-                <form id="contactForm" class="grid-3">
-                    <label>First name<input type="text" name="first_name" /></label>
-                    <label>Last name<input type="text" name="last_name" /></label>
-                    <label>Email<input type="email" name="email" /></label>
-                    <label>Company<input type="text" name="company" /></label>
-                    <label>Phone number<input type="text" name="phone_number" required placeholder="+15551234567" /></label>
-                    <button type="submit" class="full">Add Contact</button>
-                </form>
+            <div class="contacts-container">
+                <div class="contacts-header">
+                    <h2><i class="fas fa-user-plus"></i> Contact Management</h2>
+                    <p>Add and manage your client contacts</p>
+                </div>
+                
+                <div class="contacts-form">
+                    <div class="form-card">
+                        <h3><i class="fas fa-plus-circle"></i> Add New Contact</h3>
+                        <form id="contactForm" class="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contact-first-name">First Name</label>
+                                    <input type="text" id="contact-first-name" name="first_name" placeholder="Enter first name" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-last-name">Last Name</label>
+                                    <input type="text" id="contact-last-name" name="last_name" placeholder="Enter last name" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contact-email">Email</label>
+                                    <input type="email" id="contact-email" name="email" placeholder="Enter email address" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-company">Company</label>
+                                    <input type="text" id="contact-company" name="company" placeholder="Enter company name" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-phone">Phone Number *</label>
+                                <input type="text" id="contact-phone" name="phone_number" required placeholder="+15551234567" />
+                            </div>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-plus"></i>
+                                Add Contact
+                            </button>
+                        </form>
+                    </div>
+                </div>
 
-                <h3>Contacts</h3>
-                <table id="contactsTable">
-                    <thead>
-                        <tr><th>Name</th><th>Phone</th><th>Email</th><th>Company</th><th>Status</th></tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div class="contacts-list">
+                    <div class="list-header">
+                        <h3><i class="fas fa-list"></i> Contact List</h3>
+                        <button id="refreshContactsBtn" class="btn btn-secondary">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table id="contactsTable" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th><i class="fas fa-user"></i> Name</th>
+                                    <th><i class="fas fa-phone"></i> Phone</th>
+                                    <th><i class="fas fa-envelope"></i> Email</th>
+                                    <th><i class="fas fa-building"></i> Company</th>
+                                    <th><i class="fas fa-info-circle"></i> Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="empty-state">
+                                    <td colspan="5">
+                                        <div class="empty-message">
+                                            <i class="fas fa-users"></i>
+                                            <p>No contacts yet. Add your first contact above!</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- CRM Tab -->
         <section id="tab-crm" class="tab">
-            <h2>CRM</h2>
-            <div class="card">
-                <div class="flex gap">
-                    <button id="refreshConversationsBtn">Refresh Conversations</button>
+            <div class="crm-container">
+                <div class="crm-header">
+                    <h2><i class="fas fa-users"></i> Customer Relationship Management</h2>
+                    <p>Manage your customer interactions, automate data collection, and scrape customer information</p>
                 </div>
-                <div id="crmList" class="list"></div>
+                
+                <div class="crm-content">
+                    <div class="crm-stats">
+                        <div class="stat-card">
+                            <i class="fas fa-phone"></i>
+                            <div class="stat-info">
+                                <h3 id="totalCalls">0</h3>
+                                <p>Total Calls</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-comments"></i>
+                            <div class="stat-info">
+                                <h3 id="totalConversations">0</h3>
+                                <p>Conversations</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-clock"></i>
+                            <div class="stat-info">
+                                <h3 id="avgCallDuration">0m</h3>
+                                <p>Avg Duration</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <div class="stat-info">
+                                <h3 id="totalContacts">0</h3>
+                                <p>Total Contacts</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Data Export Panel -->
+                    <div class="crm-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-download"></i> Data Export & Import</h3>
+                        </div>
+                        <div class="panel-content">
+                            <div class="export-options">
+                                <h4>Export Options</h4>
+                                <div class="export-buttons">
+                                    <button id="exportCsvBtn" class="btn btn-success">
+                                        <i class="fas fa-file-csv"></i>
+                                        Export to CSV
+                                    </button>
+                                    <button id="exportJsonBtn" class="btn btn-primary">
+                                        <i class="fas fa-file-code"></i>
+                                        Export to JSON
+                                    </button>
+                                    <button id="exportExcelBtn" class="btn btn-secondary">
+                                        <i class="fas fa-file-excel"></i>
+                                        Export to Excel
+                                    </button>
+                                </div>
+                                <div class="export-filters">
+                                    <label>Date Range:</label>
+                                    <select id="exportDateRange" class="form-control">
+                                        <option value="all">All Time</option>
+                                        <option value="today">Today</option>
+                                        <option value="week">This Week</option>
+                                        <option value="month">This Month</option>
+                                        <option value="quarter">This Quarter</option>
+                                        <option value="year">This Year</option>
+                                        <option value="custom">Custom Range</option>
+                                    </select>
+                                    <div id="customDateRange" class="custom-date-range" style="display: none;">
+                                        <input type="date" id="startDate" class="form-control">
+                                        <input type="date" id="endDate" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="import-options">
+                                <h4>Import Options</h4>
+                                <div class="import-upload">
+                                    <input type="file" id="csvImportFile" accept=".csv" class="form-control">
+                                    <button id="importCsvBtn" class="btn btn-primary">
+                                        <i class="fas fa-upload"></i>
+                                        Import CSV
+                                    </button>
+                                </div>
+                                <div class="import-template">
+                                    <a href="#" id="downloadTemplateBtn" class="btn btn-secondary">
+                                        <i class="fas fa-download"></i>
+                                        Download CSV Template
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Google Forms Automation Panel -->
+                    <div class="crm-panel">
+                        <div class="panel-header">
+                            <h3><i class="fab fa-google"></i> Google Forms Automation</h3>
+                        </div>
+                        <div class="panel-content">
+                            <div class="forms-setup">
+                                <h4>Setup Google Forms Integration</h4>
+                                <div class="form-group">
+                                    <label for="googleFormUrl">Google Form URL:</label>
+                                    <input type="url" id="googleFormUrl" placeholder="https://forms.google.com/..." class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="formMapping">Field Mapping:</label>
+                                    <div class="mapping-container">
+                                        <div class="mapping-row">
+                                            <span>Form Field:</span>
+                                            <span>CRM Field:</span>
+                                            <span>Required:</span>
+                                        </div>
+                                        <div id="fieldMappings">
+                                            <!-- Dynamic field mappings will be added here -->
+                                        </div>
+                                        <button id="addMappingBtn" class="btn btn-secondary">
+                                            <i class="fas fa-plus"></i>
+                                            Add Field Mapping
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="syncFrequency">Sync Frequency:</label>
+                                    <select id="syncFrequency" class="form-control">
+                                        <option value="manual">Manual Sync</option>
+                                        <option value="hourly">Every Hour</option>
+                                        <option value="daily">Daily</option>
+                                        <option value="weekly">Weekly</option>
+                                    </select>
+                                </div>
+                                <button id="saveFormsConfigBtn" class="btn btn-success">
+                                    <i class="fas fa-save"></i>
+                                    Save Configuration
+                                </button>
+                                <button id="testFormsConnectionBtn" class="btn btn-primary">
+                                    <i class="fas fa-plug"></i>
+                                    Test Connection
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Data Scraping Panel -->
+                    <div class="crm-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-spider"></i> Data Scraping & Lead Generation</h3>
+                        </div>
+                        <div class="panel-content">
+                            <div class="scraping-options">
+                                <h4>Web Scraping Tools</h4>
+                                <div class="scraping-tools">
+                                    <div class="tool-item">
+                                        <h5><i class="fas fa-search"></i> LinkedIn Scraper</h5>
+                                        <div class="form-group">
+                                            <label for="linkedinCompany">Company Name:</label>
+                                            <input type="text" id="linkedinCompany" placeholder="Enter company name" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="linkedinLocation">Location:</label>
+                                            <input type="text" id="linkedinLocation" placeholder="City, Country" class="form-control">
+                                        </div>
+                                        <button id="scrapeLinkedinBtn" class="btn btn-primary">
+                                            <i class="fas fa-search"></i>
+                                            Scrape LinkedIn
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h5><i class="fas fa-globe"></i> Website Scraper</h5>
+                                        <div class="form-group">
+                                            <label for="websiteUrl">Website URL:</label>
+                                            <input type="url" id="websiteUrl" placeholder="https://example.com" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="scrapeDepth">Scrape Depth:</label>
+                                            <select id="scrapeDepth" class="form-control">
+                                                <option value="1">Homepage Only</option>
+                                                <option value="2">2 Levels Deep</option>
+                                                <option value="3">3 Levels Deep</option>
+                                                <option value="5">5 Levels Deep</option>
+                                            </select>
+                                        </div>
+                                        <button id="scrapeWebsiteBtn" class="btn btn-primary">
+                                            <i class="fas fa-spider"></i>
+                                            Scrape Website
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="tool-item">
+                                        <h5><i class="fas fa-building"></i> Business Directory Scraper</h5>
+                                        <div class="form-group">
+                                            <label for="businessCategory">Business Category:</label>
+                                            <select id="businessCategory" class="form-control">
+                                                <option value="">Select Category</option>
+                                                <option value="technology">Technology</option>
+                                                <option value="healthcare">Healthcare</option>
+                                                <option value="finance">Finance</option>
+                                                <option value="retail">Retail</option>
+                                                <option value="manufacturing">Manufacturing</option>
+                                                <option value="services">Professional Services</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="businessLocation">Location:</label>
+                                            <input type="text" id="businessLocation" placeholder="City, State, Country" class="form-control">
+                                        </div>
+                                        <button id="scrapeBusinessDirBtn" class="btn btn-primary">
+                                            <i class="fas fa-search"></i>
+                                            Scrape Directory
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="scraping-results">
+                                <h4>Scraping Results</h4>
+                                <div id="scrapingResults" class="results-container">
+                                    <div class="empty-state">
+                                        <i class="fas fa-search"></i>
+                                        <p>No scraping results yet. Use the tools above to start collecting data!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="crm-actions">
+                        <button id="refreshConversationsBtn" class="btn btn-primary">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh Data
+                        </button>
+                        <button id="syncFormsDataBtn" class="btn btn-success">
+                            <i class="fas fa-sync"></i>
+                            Sync Forms Data
+                        </button>
+                    </div>
+                    
+                    <div id="crmList" class="crm-list">
+                        <div class="empty-state">
+                            <i class="fas fa-chart-line"></i>
+                            <p>No CRM data available yet. Start making calls to see analytics!</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Campaigns Tab -->
         <section id="tab-campaigns" class="tab">
-            <h2>Campaign Manager</h2>
-            <div class="card">
-                <form id="campaignForm" class="grid-2">
-                    <label>Name<input type="text" name="name" required /></label>
-                    <label>Type<select name="type">
-                        <option value="sales">Sales</option>
-                        <option value="support">Support</option>
-                        <option value="survey">Survey</option>
-                    </select></label>
-                    <button type="submit" class="full">Create Sample Campaign</button>
-                </form>
-
-                <h3>Campaigns</h3>
-                <table id="campaignsTable">
-                    <thead>
-                        <tr><th>Name</th><th>Description</th><th>Created</th></tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+            <div class="campaigns-container">
+                <div class="campaigns-header">
+                    <h2><i class="fas fa-bullhorn"></i> Advanced Campaign Management</h2>
+                    <p>Create and manage intelligent call campaigns with NLP extraction and stage-based behavior</p>
+                </div>
+                
+                <div class="campaigns-content">
+                    <!-- Campaign Creation Panel -->
+                    <div class="campaign-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-plus-circle"></i> Create New Campaign</h3>
+                        </div>
+                        <div class="panel-content">
+                            <form id="campaignForm" class="campaign-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="campaignName">Campaign Name:</label>
+                                        <input type="text" id="campaignName" name="name" required class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="campaignPurpose">Campaign Purpose:</label>
+                                        <select id="campaignPurpose" name="purpose" required class="form-control">
+                                            <option value="">Select Purpose</option>
+                                            <option value="sales">Sales & Lead Generation</option>
+                                            <option value="customer_support">Customer Support</option>
+                                            <option value="survey">Customer Survey</option>
+                                            <option value="lead_generation">Lead Generation</option>
+                                            <option value="appointment_booking">Appointment Booking</option>
+                                            <option value="feedback_collection">Feedback Collection</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="campaignDescription">Description:</label>
+                                        <textarea id="campaignDescription" name="description" class="form-control" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="campaignTemplate">Use Template:</label>
+                                        <select id="campaignTemplate" name="template" class="form-control">
+                                            <option value="">No Template (Custom)</option>
+                                            <option value="sales">Sales Campaign Template</option>
+                                            <option value="customer_support">Customer Support Template</option>
+                                            <option value="survey">Survey Template</option>
+                                            <option value="lead_generation">Lead Generation Template</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="maxCallDuration">Max Call Duration (minutes):</label>
+                                        <input type="number" id="maxCallDuration" name="max_duration" min="5" max="60" value="15" class="form-control">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="preferredTiming">Preferred Timing:</label>
+                                        <select id="preferredTiming" name="preferred_timing" multiple class="form-control">
+                                            <option value="morning">Morning (9 AM - 12 PM)</option>
+                                            <option value="afternoon">Afternoon (12 PM - 5 PM)</option>
+                                            <option value="evening">Evening (5 PM - 8 PM)</option>
+                                            <option value="business_hours">Business Hours (9 AM - 6 PM)</option>
+                                            <option value="weekend">Weekend</option>
+                                            <option value="flexible">Flexible</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="customerPersonality">Target Customer Personality:</label>
+                                        <select id="customerPersonality" name="customer_personality" multiple class="form-control">
+                                            <option value="analytical">Analytical (Data-driven)</option>
+                                            <option value="driver">Driver (Results-oriented)</option>
+                                            <option value="expressive">Expressive (Relationship-focused)</option>
+                                            <option value="amiable">Amiable (Patient & Supportive)</option>
+                                            <option value="skeptical">Skeptical (Cautious)</option>
+                                            <option value="optimistic">Optimistic (Opportunity-focused)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="customTags">Custom Tags (JSON):</label>
+                                        <textarea id="customTags" name="custom_tags" class="form-control" rows="2" placeholder='{"priority": "high", "region": "US", "industry": "tech"}'></textarea>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i>
+                                        Create Campaign
+                                    </button>
+                                    <button type="button" id="previewTemplateBtn" class="btn btn-secondary">
+                                        <i class="fas fa-eye"></i>
+                                        Preview Template
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Campaign Templates Panel -->
+                    <div class="campaign-panel">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-layer-group"></i> Campaign Templates</h3>
+                        </div>
+                        <div class="panel-content">
+                            <div class="templates-grid">
+                                <div class="template-card" data-template="sales">
+                                    <div class="template-header">
+                                        <i class="fas fa-chart-line"></i>
+                                        <h4>Sales Campaign</h4>
+                                    </div>
+                                    <div class="template-content">
+                                        <p>Advanced sales campaign with lead qualification, needs assessment, and objection handling.</p>
+                                        <div class="template-features">
+                                            <span class="feature-tag">5 Stages</span>
+                                            <span class="feature-tag">NLP Extraction</span>
+                                            <span class="feature-tag">Objection Handling</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-primary use-template-btn" data-template="sales">
+                                            Use Template
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="template-card" data-template="customer_support">
+                                    <div class="template-header">
+                                        <i class="fas fa-headset"></i>
+                                        <h4>Customer Support</h4>
+                                    </div>
+                                    <div class="template-content">
+                                        <p>Proactive customer support with issue resolution and satisfaction tracking.</p>
+                                        <div class="template-features">
+                                            <span class="feature-tag">4 Stages</span>
+                                            <span class="feature-tag">Issue Resolution</span>
+                                            <span class="feature-tag">Satisfaction Tracking</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-primary use-template-btn" data-template="customer_support">
+                                            Use Template
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="template-card" data-template="survey">
+                                    <div class="template-header">
+                                        <i class="fas fa-poll"></i>
+                                        <h4>Customer Survey</h4>
+                                    </div>
+                                    <div class="template-content">
+                                        <p>Comprehensive customer feedback collection with satisfaction metrics.</p>
+                                        <div class="template-features">
+                                            <span class="feature-tag">4 Stages</span>
+                                            <span class="feature-tag">Rating Collection</span>
+                                            <span class="feature-tag">Feedback Analysis</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-primary use-template-btn" data-template="survey">
+                                            Use Template
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="template-card" data-template="lead_generation">
+                                    <div class="template-header">
+                                        <div class="template-header">
+                                            <i class="fas fa-users"></i>
+                                            <h4>Lead Generation</h4>
+                                        </div>
+                                        <div class="template-content">
+                                            <p>Proactive lead generation with qualification and nurturing.</p>
+                                            <div class="template-features">
+                                                <span class="feature-tag">3 Stages</span>
+                                                <span class="feature-tag">Lead Qualification</span>
+                                                <span class="feature-tag">Nurturing</span>
+                                            </div>
+                                            <button class="btn btn-sm btn-primary use-template-btn" data-template="lead_generation">
+                                                Use Template
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Campaigns by Purpose -->
+                    <div class="campaigns-by-purpose">
+                        <h3>Your Campaigns by Purpose</h3>
+                        
+                        <!-- Sales Campaigns -->
+                        <div class="campaign-category" id="sales-campaigns">
+                            <h4><i class="fas fa-chart-line"></i> Sales Campaigns</h4>
+                            <div class="campaigns-table-container">
+                                <table class="campaigns-table" id="salesCampaignsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Stages</th>
+                                            <th>NLP Rules</th>
+                                            <th>Status</th>
+                                            <th>Created</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Sales campaigns will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Customer Support Campaigns -->
+                        <div class="campaign-category" id="support-campaigns">
+                            <h4><i class="fas fa-headset"></i> Customer Support Campaigns</h4>
+                            <div class="campaigns-table-container">
+                                <table class="campaigns-table" id="supportCampaignsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Stages</th>
+                                            <th>NLP Rules</th>
+                                            <th>Status</th>
+                                            <th>Created</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Support campaigns will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Survey Campaigns -->
+                        <div class="campaign-category" id="survey-campaigns">
+                            <h4><i class="fas fa-poll"></i> Survey Campaigns</h4>
+                            <div class="campaigns-table-container">
+                                <table class="campaigns-table" id="surveyCampaignsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Description</th>
+                                            <th>Stages</th>
+                                            <th>NLP Rules</th>
+                                            <th>Status</th>
+                                            <th>Created</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Survey campaigns will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                
+                <!-- Other Campaigns -->
+                <div class="campaign-category" id="other-campaigns">
+                    <h4><i class="fas fa-ellipsis-h"></i> Other Campaigns</h4>
+                    <div class="campaigns-table-container">
+                        <table class="campaigns-table" id="otherCampaignsTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Stages</th>
+                                    <th>NLP Rules</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Other campaigns will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </section>
+            
+            <!-- Campaign Analytics -->
+            <div class="campaign-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-chart-bar"></i> Campaign Analytics</h3>
+                </div>
+                <div class="panel-content">
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h5>Total Campaigns</h5>
+                            <div class="analytics-value" id="totalCampaigns">0</div>
+                        </div>
+                        <div class="analytics-card">
+                            <h5>Active Campaigns</h5>
+                            <div class="analytics-value" id="activeCampaigns">0</div>
+                        </div>
+                        <div class="analytics-card">
+                            <h5>Total Calls</h5>
+                            <div class="analytics-value" id="totalCalls">0</div>
+                        </div>
+                        <div class="analytics-card">
+                            <h5>Success Rate</h5>
+                            <div class="analytics-value" id="successRate">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     </main>
 
     <div id="toast" class="toast"></div>

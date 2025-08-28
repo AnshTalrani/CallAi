@@ -35,7 +35,7 @@ TEMPLATES_DIR = os.path.abspath(os.path.join(PROJECT_ROOT, 'templates'))
 STATIC_DIR = os.path.abspath(os.path.join(PROJECT_ROOT, 'static'))
 app = Flask(__name__, template_folder=TEMPLATES_DIR, static_folder=STATIC_DIR)
 app.secret_key = os.environ.get('SECRET_KEY', 'your-secret-key-change-this-in-production')
-app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_SECURE'] = False  # Set to False for localhost testing
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['PERMANENT_SESSION_LIFETIME'] = 3600  # 1 hour
 CORS(app)
@@ -124,6 +124,45 @@ def get_call_agent(user_id: str = None):
 def health_check():
     """Health check endpoint"""
     return jsonify({'status': 'healthy', 'message': 'Call Agent API is running'})
+
+@app.route('/auth/register', methods=['POST'])
+@limiter.limit("3 per minute")
+def register():
+    """Register new user"""
+    try:
+        data = request.json
+        if not data or 'email' not in data or 'password' not in data:
+            return jsonify({'error': 'Email and password required'}), 400
+        
+        # Check if user already exists
+        existing_user = user_manager.get_user_by_email(data['email'])
+        if existing_user:
+            return jsonify({'error': 'User already exists'}), 409
+        
+        # Create new user
+        user = user_manager.register_user(
+            email=data['email'],
+            password=data['password'],
+            first_name=data.get('first_name'),
+            last_name=data.get('last_name'),
+            company_name=data.get('company_name')
+        )
+        
+        if user:
+            session['user_id'] = user.id
+            return jsonify({
+                'message': 'Registration successful',
+                'user': {
+                    'id': user.id,
+                    'email': user.email,
+                    'full_name': user.full_name,
+                    'company_name': user.company_name
+                }
+            })
+        else:
+            return jsonify({'error': 'Registration failed'}), 500
+    except Exception as e:
+        return jsonify({'error': 'Registration failed'}), 500
 
 @app.route('/auth/login', methods=['POST'])
 @limiter.limit("5 per minute")
