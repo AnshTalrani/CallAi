@@ -19,8 +19,11 @@ from .campaign_manager import CampaignManager
 class CallAgent:
     """Main call agent that handles voice calls with CRM integration"""
     
-    def __init__(self, device_id: int = 1, sample_rate: int = 16000):
+    def __init__(self, user=None, device_id: int = 1, sample_rate: int = 16000):
         print("\nInitializing Call Agent...")
+        
+        # Store user context for multi-tenant support
+        self.user = user
         
         # Initialize voice components
         self.recognizer = VoiceRecognizer(device_id)
@@ -31,8 +34,8 @@ class CallAgent:
         self.contact_repo = ContactRepository()
         self.conversation_repo = ConversationRepository()
         
-        # Initialize campaign manager
-        self.campaign_manager = CampaignManager()
+        # Initialize campaign manager with user context
+        self.campaign_manager = CampaignManager(user=user)
         
         # Call state
         self.current_call: Optional[Call] = None
@@ -62,19 +65,30 @@ class CallAgent:
     def start_call(self, contact_id: str, campaign_id: str, phone_number: str) -> bool:
         """Start a new call"""
         try:
-            # Get contact and campaign
-            contact = self.contact_repo.find_by_id(contact_id)
-            if not contact:
-                print(f"Contact {contact_id} not found")
-                return False
+                    # Get contact and campaign with user validation
+        contact = self.contact_repo.find_by_id(contact_id)
+        if not contact:
+            print(f"Contact {contact_id} not found")
+            return False
+        
+        # Verify contact belongs to current user
+        if self.user and contact.user_id != self.user.id:
+            print(f"Contact {contact_id} does not belong to current user")
+            return False
+        
+        campaign = self.campaign_manager.campaign_repo.find_by_id(campaign_id)
+        if not campaign:
+            print(f"Campaign {campaign_id} not found")
+            return False
+        
+        # Verify campaign belongs to current user
+        if self.user and campaign.user_id != self.user.id:
+            print(f"Campaign {campaign_id} does not belong to current user")
+            return False
             
-            campaign = self.campaign_manager.campaign_repo.find_by_id(campaign_id)
-            if not campaign:
-                print(f"Campaign {campaign_id} not found")
-                return False
-            
-            # Create call record
+            # Create call record with user context
             call = Call(
+                user_id=self.user.id if self.user else contact.user_id,
                 contact_id=contact_id,
                 campaign_id=campaign_id,
                 phone_number=phone_number,
@@ -82,9 +96,10 @@ class CallAgent:
                 start_time=datetime.now()
             )
             
-            # Create conversation record
+            # Create conversation record with user context
             conversation = self.conversation_repo.create(
                 self.conversation_repo.from_dict({
+                    'user_id': self.user.id if self.user else contact.user_id,
                     'contact_id': contact_id,
                     'campaign_id': campaign_id,
                     'call_id': call.id,
