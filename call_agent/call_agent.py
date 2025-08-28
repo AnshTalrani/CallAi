@@ -65,26 +65,26 @@ class CallAgent:
     def start_call(self, contact_id: str, campaign_id: str, phone_number: str) -> bool:
         """Start a new call"""
         try:
-                    # Get contact and campaign with user validation
-        contact = self.contact_repo.find_by_id(contact_id)
-        if not contact:
-            print(f"Contact {contact_id} not found")
-            return False
-        
-        # Verify contact belongs to current user
-        if self.user and contact.user_id != self.user.id:
-            print(f"Contact {contact_id} does not belong to current user")
-            return False
-        
-        campaign = self.campaign_manager.campaign_repo.find_by_id(campaign_id)
-        if not campaign:
-            print(f"Campaign {campaign_id} not found")
-            return False
-        
-        # Verify campaign belongs to current user
-        if self.user and campaign.user_id != self.user.id:
-            print(f"Campaign {campaign_id} does not belong to current user")
-            return False
+            # Get contact and campaign with user validation
+            contact = self.contact_repo.find_by_id(contact_id)
+            if not contact:
+                print(f"Contact {contact_id} not found")
+                return False
+            
+            # Verify contact belongs to current user
+            if self.user and contact.user_id != self.user.id:
+                print(f"Contact {contact_id} does not belong to current user")
+                return False
+            
+            campaign = self.campaign_manager.campaign_repo.find_by_id(campaign_id)
+            if not campaign:
+                print(f"Campaign {campaign_id} not found")
+                return False
+            
+            # Verify campaign belongs to current user
+            if self.user and campaign.user_id != self.user.id:
+                print(f"Campaign {campaign_id} does not belong to current user")
+                return False
             
             # Create call record with user context
             call = Call(

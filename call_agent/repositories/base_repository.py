@@ -98,3 +98,13 @@ class BaseRepository(ABC, Generic[T]):
         """Find one entity by field value"""
         results = self.find_by_field(field, value)
         return results[0] if results else None
+    
+    def _parse_datetime(self, datetime_str: str):
+        """Parse datetime string to datetime object"""
+        if datetime_str:
+            return datetime.fromisoformat(datetime_str)
+        return None
+    
+    def _get_current_datetime(self):
+        """Get current datetime"""
+        return datetime.now()

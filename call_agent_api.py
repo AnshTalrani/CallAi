@@ -99,6 +99,8 @@ def create_campaign():
         data = request.json
         campaign_type = data.get('type', 'sales')
         
+        # Note: This API doesn't have multi-tenant support
+        # For production use, use multi_tenant_api.py instead
         campaign_manager = CampaignManager()
         campaign = campaign_manager.create_sample_campaign(campaign_type)
         
