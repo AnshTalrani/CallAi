@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Call Agent Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+    <header class="app-header">
+        <div class="brand">Call Agent</div>
+        <nav class="nav">
+            <button class="tab-btn" data-tab="auth">Auth</button>
+            <button class="tab-btn" data-tab="demo-chat">Demo Chat</button>
+            <button class="tab-btn" data-tab="registration">Client Registration</button>
+            <button class="tab-btn" data-tab="crm">CRM</button>
+            <button class="tab-btn" data-tab="campaigns">Campaigns</button>
+        </nav>
+        <div class="profile" id="profileBox"></div>
+    </header>
+
+    <main class="container">
+        <!-- Auth Tab -->
+        <section id="tab-auth" class="tab active">
+            <h2>Authentication</h2>
+            <div class="card grid-2">
+                <form id="loginForm">
+                    <h3>Login</h3>
+                    <label>Email<input type="email" name="email" required /></label>
+                    <label>Password<input type="password" name="password" required /></label>
+                    <button type="submit">Login</button>
+                </form>
+                <form id="registerForm">
+                    <h3>Register</h3>
+                    <label>First name<input type="text" name="first_name" /></label>
+                    <label>Last name<input type="text" name="last_name" /></label>
+                    <label>Company<input type="text" name="company_name" /></label>
+                    <label>Email<input type="email" name="email" required /></label>
+                    <label>Password<input type="password" name="password" required /></label>
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Demo Chat Tab -->
+        <section id="tab-demo-chat" class="tab">
+            <h2>Demo Chat with Bot</h2>
+            <div class="card">
+                <div class="flex gap">
+                    <select id="demoContactSelect"></select>
+                    <select id="demoCampaignSelect"></select>
+                    <input id="demoPhone" type="text" placeholder="Your phone (E.164)" />
+                    <button id="startCallBtn">Start Call</button>
+                    <button id="endCallBtn" class="secondary">End Call</button>
+                </div>
+                <div class="chat" id="chatWindow"></div>
+                <div class="flex gap">
+                    <input id="chatInput" type="text" placeholder="Type a message..." />
+                    <button id="sendMsgBtn">Send</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Registration Tab (Contacts) -->
+        <section id="tab-registration" class="tab">
+            <h2>Register Client Phone Numbers</h2>
+            <div class="card">
+                <form id="contactForm" class="grid-3">
+                    <label>First name<input type="text" name="first_name" /></label>
+                    <label>Last name<input type="text" name="last_name" /></label>
+                    <label>Email<input type="email" name="email" /></label>
+                    <label>Company<input type="text" name="company" /></label>
+                    <label>Phone number<input type="text" name="phone_number" required placeholder="+15551234567" /></label>
+                    <button type="submit" class="full">Add Contact</button>
+                </form>
+
+                <h3>Contacts</h3>
+                <table id="contactsTable">
+                    <thead>
+                        <tr><th>Name</th><th>Phone</th><th>Email</th><th>Company</th><th>Status</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CRM Tab -->
+        <section id="tab-crm" class="tab">
+            <h2>CRM</h2>
+            <div class="card">
+                <div class="flex gap">
+                    <button id="refreshConversationsBtn">Refresh Conversations</button>
+                </div>
+                <div id="crmList" class="list"></div>
+            </div>
+        </section>
+
+        <!-- Campaigns Tab -->
+        <section id="tab-campaigns" class="tab">
+            <h2>Campaign Manager</h2>
+            <div class="card">
+                <form id="campaignForm" class="grid-2">
+                    <label>Name<input type="text" name="name" required /></label>
+                    <label>Type<select name="type">
+                        <option value="sales">Sales</option>
+                        <option value="support">Support</option>
+                        <option value="survey">Survey</option>
+                    </select></label>
+                    <button type="submit" class="full">Create Sample Campaign</button>
+                </form>
+
+                <h3>Campaigns</h3>
+                <table id="campaignsTable">
+                    <thead>
+                        <tr><th>Name</th><th>Description</th><th>Created</th></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
+
