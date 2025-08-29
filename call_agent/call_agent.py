@@ -8,13 +8,13 @@ import wave
 import os
 
 from voice_recognition import VoiceRecognizer
-from llm_thinking import LLMThinker
 from text_to_speech import TTSGenerator
 
 from .models.crm import Contact, Call, CallStatus, CampaignStage, ContactStatus
 from .repositories.contact_repository import ContactRepository
 from .repositories.conversation_repository import ConversationRepository
 from .campaign_manager import CampaignManager
+from .conversation_pipeline import ConversationPipeline
 
 class CallAgent:
     """Main call agent that handles voice calls with CRM integration"""
@@ -27,8 +27,10 @@ class CallAgent:
         
         # Initialize voice components
         self.recognizer = VoiceRecognizer(device_id)
-        self.thinker = LLMThinker()
         self.tts = TTSGenerator(default_voice='af_heart')
+        
+        # Initialize conversation pipeline
+        self.pipeline = ConversationPipeline()
         
         # Initialize repositories
         self.contact_repo = ContactRepository()
@@ -63,6 +65,22 @@ class CallAgent:
         }
         
         print("Call Agent initialization complete!")
+    
+    def _get_campaign_config(self, campaign) -> Dict[str, Any]:
+        """Get campaign configuration for pipeline setup"""
+        config = {
+            'name': campaign.name,
+            'purpose': campaign.purpose.value if hasattr(campaign, 'purpose') else 'sales',
+            'stages': [stage.value for stage in campaign.stages] if hasattr(campaign, 'stages') else [],
+            'script_template': campaign.script_template if hasattr(campaign, 'script_template') else {},
+            'nlp_extraction_rules': []
+        }
+        
+        # Add NLP extraction rules if available
+        if hasattr(campaign, 'nlp_extraction_rules'):
+            config['nlp_extraction_rules'] = campaign.nlp_extraction_rules
+        
+        return config
     
     def set_agent_personality(self, personality_config: Dict[str, Any]):
         """Configure the agent's personality for the call"""
@@ -136,6 +154,10 @@ BEHAVIORAL GUIDELINES:
                 status=CallStatus.IN_PROGRESS,
                 start_time=datetime.now()
             )
+            
+            # Setup pipeline for this campaign
+            campaign_config = self._get_campaign_config(campaign)
+            self.pipeline.setup_campaign(campaign_id, campaign_config)
             
             # Create conversation record with user context
             conversation = self.conversation_repo.create(
@@ -299,29 +321,30 @@ BEHAVIORAL GUIDELINES:
             # Get script for current stage
             script = self.get_current_script()
             
-            # Determine campaign type from campaign purpose
-            campaign_type = self.current_campaign.purpose.value.lower() if hasattr(self.current_campaign, 'purpose') else 'sales'
-            
-            # Create context for LLM
-            context = {
+            # Process through the conversation pipeline
+            campaign_context = {
                 'campaign_name': self.current_campaign.name,
-                'current_stage': self.current_conversation.stage.value,
-                'script': script,
-                'collected_data': self.current_conversation.collected_data,
-                'call_context': self.call_context,
-                'contact_info': {
-                    'name': self.current_contact.name if self.current_contact else 'Unknown',
-                    'company': self.current_contact.company if self.current_contact else 'Unknown'
-                }
+                'campaign_type': self.current_campaign.purpose.value.lower() if hasattr(self.current_campaign, 'purpose') else 'sales',
+                'contact_name': self.current_contact.name if self.current_contact else 'Unknown',
+                'contact_company': self.current_contact.company if self.current_contact else 'Unknown',
+                'current_script': script
             }
             
-            response = self.thinker.get_response(
-                user_text, 
-                campaign_type=campaign_type,
-                stage=self.current_conversation.stage.value.lower(),
-                context=context,
-                personality_config=self.agent_personality
+            conversation_state = {
+                'current_stage': self.current_conversation.stage.value,
+                'collected_data': self.current_conversation.collected_data,
+                'call_context': self.call_context,
+                'timestamp': time.time()
+            }
+            
+            # Process through pipeline
+            pipeline_result = self.pipeline.process_user_input(
+                user_input=user_text,
+                campaign_context=campaign_context,
+                conversation_state=conversation_state
             )
+            
+            response = pipeline_result.llm_response
             
             # Add agent response to transcript
             self.conversation_repo.add_transcript_entry(
