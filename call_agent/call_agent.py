@@ -51,7 +51,48 @@ class CallAgent:
         # Call context
         self.call_context: Dict[str, Any] = {}
         
+        # Agent personality configuration
+        self.agent_personality = {
+            'name': 'Alex',
+            'tone': 'professional_friendly',
+            'speaking_pace': 'moderate',
+            'empathy_level': 8,
+            'assertiveness_level': 5,
+            'humor_level': 3,
+            'technical_depth': 4
+        }
+        
         print("Call Agent initialization complete!")
+    
+    def set_agent_personality(self, personality_config: Dict[str, Any]):
+        """Configure the agent's personality for the call"""
+        self.agent_personality.update(personality_config)
+        print(f"Agent personality updated: {self.agent_personality}")
+    
+    def get_agent_personality_prompt(self) -> str:
+        """Generate personality-specific instructions for the LLM"""
+        personality = self.agent_personality
+        
+        prompt = f"""
+AGENT PERSONALITY CONFIGURATION:
+Name: {personality['name']}
+Tone: {personality['tone']}
+Speaking Pace: {personality['speaking_pace']}
+Empathy Level: {personality['empathy_level']}/10
+Assertiveness Level: {personality['assertiveness_level']}/10
+Humor Level: {personality['humor_level']}/10
+Technical Depth: {personality['technical_depth']}/10
+
+BEHAVIORAL GUIDELINES:
+- Use your name '{personality['name']}' when introducing yourself
+- Maintain a {personality['tone']} tone throughout the conversation
+- Speak at a {personality['speaking_pace']} pace
+- Show appropriate empathy based on your empathy level
+- Be appropriately assertive based on your assertiveness level
+- Use humor sparingly and appropriately based on your humor level
+- Adjust technical detail based on your technical depth setting
+"""
+        return prompt
     
     def cleanup(self):
         """Clean up all resources"""
@@ -258,21 +299,29 @@ class CallAgent:
             # Get script for current stage
             script = self.get_current_script()
             
-            # Create prompt for LLM
-            prompt = f"""
-You are a call agent conducting a {self.current_campaign.name} campaign.
-Current stage: {self.current_conversation.stage.value}
-Script: {script}
-
-User said: {user_text}
-
-Collected data so far: {self.current_conversation.collected_data}
-
-Respond naturally as if you're having a real conversation. Use the script as a guide but adapt to the user's input.
-Keep your response conversational and under 2-3 sentences.
-"""
+            # Determine campaign type from campaign purpose
+            campaign_type = self.current_campaign.purpose.value.lower() if hasattr(self.current_campaign, 'purpose') else 'sales'
             
-            response = self.thinker.get_response(prompt)
+            # Create context for LLM
+            context = {
+                'campaign_name': self.current_campaign.name,
+                'current_stage': self.current_conversation.stage.value,
+                'script': script,
+                'collected_data': self.current_conversation.collected_data,
+                'call_context': self.call_context,
+                'contact_info': {
+                    'name': self.current_contact.name if self.current_contact else 'Unknown',
+                    'company': self.current_contact.company if self.current_contact else 'Unknown'
+                }
+            }
+            
+            response = self.thinker.get_response(
+                user_text, 
+                campaign_type=campaign_type,
+                stage=self.current_conversation.stage.value.lower(),
+                context=context,
+                personality_config=self.agent_personality
+            )
             
             # Add agent response to transcript
             self.conversation_repo.add_transcript_entry(
