@@ -1,8 +1,8 @@
 import os
 from dotenv import load_dotenv
 from voice_recognition import VoiceRecognizer, select_audio_device
-from llm_thinking import LLMThinker
 from text_to_speech import TTSGenerator
+from call_agent.conversation_pipeline import ConversationPipeline
 
 # Load environment variables from .env file
 load_dotenv()
@@ -11,8 +11,25 @@ class VoiceAgent:
     def __init__(self, device_id=1):
         print("\nInitializing Voice Chat Agent...")
         self.recognizer = VoiceRecognizer(device_id)
-        self.thinker = LLMThinker()
         self.tts = TTSGenerator(default_voice='af_heart')
+        self.pipeline = ConversationPipeline()
+        
+        # Minimal default campaign setup so this standalone works
+        default_campaign_config = {
+            'name': 'Ad-hoc Voice Chat',
+            'purpose': 'sales',
+            'stages': ['introduction', 'needs_assessment', 'solution_presentation', 'objection_handling', 'closing'],
+            'script_template': {
+                'introduction': {'script': 'Greet and ask how you can help.'},
+                'needs_assessment': {'script': 'Ask about challenges and goals.'},
+                'solution_presentation': {'script': 'Present tailored benefits.'},
+                'objection_handling': {'script': 'Acknowledge and address concerns.'},
+                'closing': {'script': 'Summarize and propose next steps.'}
+            },
+            'nlp_extraction_rules': []
+        }
+        self.pipeline.setup_campaign("adhoc_voice_chat", default_campaign_config)
+        
         print("Voice Chat Agent initialization complete!")
 
     def cleanup(self):
@@ -28,6 +45,7 @@ class VoiceAgent:
         print("Speak clearly into your microphone. You should see █ when voice is detected.")
         
         try:
+            current_stage = 'introduction'
             while True:
                 try:
                     # Record and transcribe audio
@@ -46,12 +64,41 @@ class VoiceAgent:
                             print("\nNo speech detected, trying again...")
                             continue
                         
-                        # Get LLM response
-                        response = self.thinker.get_response(text)
+                        # Build minimal contexts
+                        campaign_context = {
+                            'campaign_name': 'Ad-hoc Voice Chat',
+                            'campaign_type': 'sales',
+                            'contact_name': 'Caller',
+                            'contact_company': 'Unknown',
+                            'current_script': f"Script for {current_stage} stage"
+                        }
+                        conversation_state = {
+                            'current_stage': current_stage,
+                            'collected_data': {},
+                            'call_context': {},
+                            'timestamp': 0
+                        }
+                        
+                        # Process via pipeline
+                        result = self.pipeline.process_user_input(
+                            user_input=text,
+                            campaign_context=campaign_context,
+                            conversation_state=conversation_state
+                        )
+                        
+                        # Optionally advance stage if strategy suggests
+                        if result.strategic_instruction.primary_goal == 'transition_stage':
+                            stage_order = ['introduction', 'needs_assessment', 'solution_presentation', 'objection_handling', 'closing']
+                            try:
+                                idx = stage_order.index(current_stage)
+                                if idx + 1 < len(stage_order):
+                                    current_stage = stage_order[idx + 1]
+                            except ValueError:
+                                pass
                         
                         # Convert response to speech
                         print("\nSpeaking...")
-                        self.tts.generate_speech(response)
+                        self.tts.generate_speech(result.llm_response)
                     else:
                         print("\nNo audio recorded, trying again...")
                     
