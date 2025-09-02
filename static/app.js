@@ -137,7 +137,7 @@ async function loadProfile(){
   try{ 
     const p=await api.get('/auth/profile'); 
     setProfile(p); 
-    await Promise.all([refreshContacts(), refreshCampaigns()]); 
+    await Promise.all([refreshContacts(), refreshCampaigns(), refreshPhoneNumbers()]); 
     // Redirect to CRM tab after successful login
     showTab('crm');
   }catch{ 
@@ -348,12 +348,66 @@ function appendMsg(role, text){
   chatWindow.appendChild(row); chatWindow.scrollTop = chatWindow.scrollHeight;
 }
 
+async function refreshPhoneNumbers() {
+  try {
+    const res = await api.get('/auth/phone_numbers');
+    const list = document.getElementById('myNumbersList');
+    const select = document.getElementById('demoFromNumber');
+    list.innerHTML = '';
+    select.innerHTML = '<option value="">Select your number...</option>';
+    (res.phone_numbers || []).forEach(num => {
+      const row = document.createElement('div');
+      row.className = 'number-row';
+      row.innerHTML = `<span>${num}</span> <button class="btn btn-sm btn-danger" data-num="${num}"><i class="fas fa-trash"></i></button>`;
+      row.querySelector('button').onclick = async () => {
+        await api.delete('/auth/phone_numbers', { phone_number: num });
+        toast('Number removed', 'success');
+        await refreshPhoneNumbers();
+      };
+      list.appendChild(row);
+      // Also add to call dropdown
+      const opt = document.createElement('option');
+      opt.value = num; opt.textContent = num;
+      select.appendChild(opt);
+    });
+  } catch (err) {
+    // Not logged in or error
+  }
+}
+
+document.getElementById('addNumberForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const input = document.getElementById('addNumberInput');
+  const num = input.value.trim();
+  if (!validatePhone(num)) {
+    toast('Invalid phone number', 'error');
+    return;
+  }
+  try {
+    await api.post('/auth/phone_numbers', { phone_number: num });
+    toast('Number added', 'success');
+    input.value = '';
+    await refreshPhoneNumbers();
+  } catch (err) {
+    toast(err.message, 'error');
+  }
+});
+
+// Patch api to support DELETE with body
+api.delete = async function(path, body) {
+  const res = await fetch(`${this.base}${path}`, { method: 'DELETE', headers: this.headers, body: JSON.stringify(body), credentials: 'include' });
+  return this._handle(res);
+};
+
 document.getElementById('startCallBtn').addEventListener('click', async ()=>{
   const contact_id = document.getElementById('demoContactSelect').value;
   const campaign_id = document.getElementById('demoCampaignSelect').value;
   const phone_number = document.getElementById('demoPhone').value;
+  const from_number = document.getElementById('demoFromNumber').value;
   try{
-    const res = await api.post('/calls/start', { contact_id, campaign_id, phone_number });
+    const endpoint = contact_id && campaign_id ? '/calls/start' : '/calls/direct';
+    const payload = contact_id && campaign_id ? { contact_id, campaign_id, phone_number, from_number } : { phone_number, from_number };
+    const res = await api.post(endpoint, payload);
     toast(res.message || 'Call started');
     chatWindow.innerHTML='';
     appendMsg('agent', 'Call started. You can chat below.');
@@ -913,6 +967,73 @@ async function addScrapedContact(name, email, phone, company) {
 document.querySelector('[data-tab="crm"]').addEventListener('click', () => {
   setTimeout(initializeCrmFeatures, 100);
 });
+
+// Live Call Dashboard & Analytics
+async function refreshCallStatus() {
+  try {
+    const status = await api.get('/calls/status');
+    const dashboard = document.getElementById('liveCallDashboard');
+    if (!dashboard) return;
+    dashboard.innerHTML = '';
+    if (status.status === 'no_active_call') {
+      dashboard.innerHTML = '<div class="empty-state"><i class="fas fa-phone-slash"></i><p>No active call.</p></div>';
+      return;
+    }
+    // Show call info
+    const info = document.createElement('div');
+    info.className = 'call-info';
+    info.innerHTML = `<b>Call ID:</b> ${status.call_id || ''}<br><b>Contact:</b> ${status.contact || ''}<br><b>Campaign:</b> ${status.campaign || ''}<br><b>Stage:</b> ${status.stage || ''}<br><b>Duration:</b> ${status.duration || 0}s`;
+    dashboard.appendChild(info);
+    // Add call control buttons (stubs)
+    const controls = document.createElement('div');
+    controls.className = 'call-controls';
+    controls.innerHTML = `
+      <button class="btn btn-warning" onclick="holdCall('${status.channel_id}')"><i class="fas fa-pause"></i> Hold</button>
+      <button class="btn btn-success" onclick="unholdCall('${status.channel_id}')"><i class="fas fa-play"></i> Unhold</button>
+      <button class="btn btn-info" onclick="transferCallPrompt('${status.channel_id}')"><i class="fas fa-random"></i> Transfer</button>
+      <button class="btn btn-secondary" onclick="dtmfPrompt('${status.channel_id}')"><i class="fas fa-keyboard"></i> DTMF</button>
+      <button class="btn btn-primary" onclick="callOutcomePrompt('${status.call_id}')"><i class="fas fa-flag"></i> Outcome</button>
+    `;
+    dashboard.appendChild(controls);
+  } catch (err) {
+    // ignore
+  }
+}
+window.holdCall = async function(channel_id) {
+  await api.post('/calls/hold', { channel_id });
+  toast('Call put on hold', 'info');
+};
+window.unholdCall = async function(channel_id) {
+  await api.post('/calls/unhold', { channel_id });
+  toast('Call removed from hold', 'info');
+};
+window.transferCallPrompt = function(channel_id) {
+  const ext = prompt('Enter extension to transfer to:');
+  if (ext) window.transferCall(channel_id, ext);
+};
+window.transferCall = async function(channel_id, new_extension) {
+  await api.post('/calls/transfer', { channel_id, new_extension });
+  toast('Call transferred', 'info');
+};
+window.dtmfPrompt = function(channel_id) {
+  const dtmf = prompt('Enter DTMF digits to send:');
+  if (dtmf) window.sendDtmf(channel_id, dtmf);
+};
+window.sendDtmf = async function(channel_id, dtmf) {
+  await api.post('/calls/dtmf', { channel_id, dtmf });
+  toast('DTMF sent', 'info');
+};
+window.callOutcomePrompt = function(call_id) {
+  const outcome = prompt('Enter call outcome (e.g., completed, failed, voicemail):');
+  const notes = prompt('Any notes?');
+  if (outcome) window.callOutcome(call_id, outcome, notes);
+};
+window.callOutcome = async function(call_id, outcome, notes) {
+  await api.post('/calls/outcome', { call_id, outcome, notes });
+  toast('Call outcome tracked', 'success');
+};
+// Periodically refresh live call dashboard
+setInterval(refreshCallStatus, 5000);
 
 // Initial load
 loadProfile();

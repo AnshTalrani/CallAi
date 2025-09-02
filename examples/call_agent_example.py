@@ -5,7 +5,6 @@ Call Agent Example - Demonstrates how to use the call agent system
 
 import sys
 import os
-from voice_recognition import select_audio_device
 
 # Ensure project root is on path so `call_agent` can be imported after move
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -13,18 +12,20 @@ PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, os.pardir))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from call_agent.call_agent import CallAgent
-from call_agent.campaign_manager import CampaignManager
-from call_agent.models.crm import Contact, ContactStatus
-from call_agent.repositories.contact_repository import ContactRepository
+from services.voice_recognition import select_audio_device
+
+from core.call_agent import CallAgent
+from core.campaign_manager import CampaignManager
+from crm.models.crm import Contact, ContactStatus
+from crm.repositories.contact_repository import ContactRepository
 
 def create_sample_data():
     """Create sample contacts and campaigns for demonstration"""
     print("Creating sample data...")
     
     # Create a sample user for demonstration
-    from call_agent.user_manager import UserManager
-    from call_agent.models.user import User, UserStatus, UserPlan
+    from core.user_manager import UserManager
+    from crm.models.user import User, UserStatus, UserPlan
     
     user_manager = UserManager()
     
@@ -66,23 +67,33 @@ def create_sample_data():
     )
     contacts.append(contact_repo.create(contact2))
     
-    # Create sample campaigns
-    sales_campaign = campaign_manager.create_sample_campaign("sales")
-    support_campaign = campaign_manager.create_sample_campaign("support")
-    survey_campaign = campaign_manager.create_sample_campaign("survey")
+    # Create sample campaigns using templates
+    try:
+        sales_campaign = campaign_manager.create_sample_campaign("sales")
+        support_campaign = campaign_manager.create_sample_campaign("support")
+        survey_campaign = campaign_manager.create_sample_campaign("survey")
+        print(f"Created {len(contacts)} contacts and 3 template-based campaigns")
+    except Exception as e:
+        print(f"Template-based campaign creation failed: {e}")
+        print("Falling back to legacy campaign creation...")
+        # Fallback to legacy methods
+        sales_campaign = campaign_manager._create_legacy_campaign("sales")
+        support_campaign = campaign_manager._create_legacy_campaign("support")
+        survey_campaign = campaign_manager._create_legacy_campaign("survey")
+        print(f"Created {len(contacts)} contacts and 3 legacy campaigns")
     
-    print(f"Created {len(contacts)} contacts and 3 campaigns")
-    return contacts, [sales_campaign, support_campaign, survey_campaign]
+    return demo_user, contacts, [sales_campaign, support_campaign, survey_campaign]
 
 def main():
     """Main function to demonstrate call agent functionality"""
     print("=== Call Agent System Demo ===\n")
     
     # Create sample data
-    contacts, campaigns = create_sample_data()
+    demo_user, contacts, campaigns = create_sample_data()
     
     # Select audio device
-    device_id = select_audio_device()
+    # device_id = select_audio_device()
+    device_id = 0  # Bypassed due to system audio library error
     
     # Initialize call agent with user context
     agent = CallAgent(user=demo_user, device_id=device_id)

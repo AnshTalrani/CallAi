@@ -480,5 +480,1610 @@
     "created_at": "2025-08-28T20:31:25.158998",
     "updated_at": "2025-08-28T20:31:25.159000",
     "is_active": true
+  },
+  {
+    "id": "d1d9ae68-8b98-4738-b8a3-0ae8411713d7",
+    "user_id": "66baef9c-7477-4a83-a8e9-233c49ac8f4d",
+    "name": "Sales Outreach Campaign",
+    "description": "A comprehensive sales campaign for product outreach",
+    "purpose": "sales",
+    "template": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. I hope you're having a great day. I'm reaching out because we have a special offer that I think would be perfect for your business. Do you have a moment to hear about it?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "needs_assessment": {
+        "script": "Great! To make sure I'm offering you the right solution, could you tell me a bit about your current business challenges? What's the biggest pain point you're facing right now?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "challenge",
+            "issue",
+            "need"
+          ],
+          "min_turns": 3
+        }
+      },
+      "solution_presentation": {
+        "script": "Based on what you've told me, I think our {product_name} would be perfect for you. It specifically addresses {pain_point} and has helped companies like yours increase their {benefit} by {percentage}. Would you like to hear more about how it works?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "how",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "objection_handling": {
+        "script": "I understand your concern about {objection}. Many of our customers had the same worry initially. However, {counter_argument}. Plus, we offer a {guarantee}. What do you think about that?",
+        "transition_rules": {
+          "keywords": [
+            "okay",
+            "good",
+            "interesting"
+          ],
+          "sentiment_threshold": 0.3
+        }
+      },
+      "closing": {
+        "script": "Perfect! I'd love to schedule a quick demo for you. When would be a good time? I have availability {available_times}. Also, what's the best email to send you the details?",
+        "transition_rules": {
+          "keywords": [
+            "schedule",
+            "demo",
+            "email"
+          ],
+          "min_turns": 2
+        }
+      }
+    },
+    "data_collection_fields": [
+      "name",
+      "email",
+      "company",
+      "pain_point",
+      "budget",
+      "decision_maker"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-29T18:01:34.026170",
+    "updated_at": "2025-08-29T18:01:34.026175",
+    "is_active": true
+  },
+  {
+    "id": "1181bf16-d486-4ae2-881c-6626318a5026",
+    "user_id": "50672de0-a243-48a8-abe6-f96fb3e8a36e",
+    "name": "Sales Outreach Campaign",
+    "description": "A comprehensive sales campaign for product outreach",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. I hope you're having a great day. I'm reaching out because we have a special offer that I think would be perfect for your business. Do you have a moment to hear about it?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "needs_assessment": {
+        "script": "Great! To make sure I'm offering you the right solution, could you tell me a bit about your current business challenges? What's the biggest pain point you're facing right now?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "challenge",
+            "issue",
+            "need"
+          ],
+          "min_turns": 3
+        }
+      },
+      "solution_presentation": {
+        "script": "Based on what you've told me, I think our {product_name} would be perfect for you. It specifically addresses {pain_point} and has helped companies like yours increase their {benefit} by {percentage}. Would you like to hear more about how it works?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "how",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "objection_handling": {
+        "script": "I understand your concern about {objection}. Many of our customers had the same worry initially. However, {counter_argument}. Plus, we offer a {guarantee}. What do you think about that?",
+        "transition_rules": {
+          "keywords": [
+            "okay",
+            "good",
+            "interesting"
+          ],
+          "sentiment_threshold": 0.3
+        }
+      },
+      "closing": {
+        "script": "Perfect! I'd love to schedule a quick demo for you. When would be a good time? I have availability {available_times}. Also, what's the best email to send you the details?",
+        "transition_rules": {
+          "keywords": [
+            "schedule",
+            "demo",
+            "email"
+          ],
+          "min_turns": 2
+        }
+      }
+    },
+    "data_collection_fields": [
+      "name",
+      "email",
+      "company",
+      "pain_point",
+      "budget",
+      "decision_maker"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-29T23:59:54.934671",
+    "updated_at": "2025-08-29T23:59:54.934673",
+    "is_active": true
+  },
+  {
+    "id": "a507f194-394e-48e6-b230-c487bfc2db19",
+    "user_id": "50672de0-a243-48a8-abe6-f96fb3e8a36e",
+    "name": "Customer Support Follow-up",
+    "description": "Support campaign for following up on customer issues",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} from {company_name} support. I'm calling to follow up on your recent {issue_type} ticket. How are you doing today?",
+        "transition_rules": {
+          "keywords": [
+            "fine",
+            "good",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "I see you reported an issue with {product_feature}. Can you walk me through what happened and what you were trying to do when the problem occurred?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "issue",
+            "error"
+          ],
+          "min_turns": 2
+        }
+      },
+      "solution_presentation": {
+        "script": "I understand the issue now. This is actually a known problem that we've identified and fixed. The solution involves {solution_steps}. Would you like me to walk you through the fix?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "please"
+          ],
+          "min_turns": 1
+        }
+      },
+      "closing": {
+        "script": "Great! I've documented this resolution in your ticket. Is there anything else I can help you with today? Also, would you like me to send you a follow-up email with the solution steps?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "issue_type",
+      "product_feature",
+      "resolution_satisfaction",
+      "additional_help_needed"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-29T23:59:54.936151",
+    "updated_at": "2025-08-29T23:59:54.936153",
+    "is_active": true
+  },
+  {
+    "id": "124e5ab7-3c11-4aa4-9cc7-cc0f3f311c8e",
+    "user_id": "50672de0-a243-48a8-abe6-f96fb3e8a36e",
+    "name": "Customer Satisfaction Survey",
+    "description": "Survey campaign for gathering customer feedback",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. We're conducting a brief customer satisfaction survey and would really value your feedback. Do you have 2-3 minutes to help us improve our service?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "Thank you! First, how would you rate your overall satisfaction with our {product_name} on a scale of 1 to 10, where 10 is extremely satisfied?",
+        "transition_rules": {
+          "keywords": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "min_turns": 1
+        }
+      },
+      "solution_presentation": {
+        "script": "Thank you for that rating. What's the main reason for your rating? What could we do better to improve your experience?",
+        "transition_rules": {
+          "keywords": [
+            "because",
+            "reason",
+            "better"
+          ],
+          "min_turns": 2
+        }
+      },
+      "closing": {
+        "script": "Thank you so much for your valuable feedback! We really appreciate you taking the time to help us improve. Is there anything else you'd like to share with us?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "satisfaction_rating",
+      "feedback_reason",
+      "improvement_suggestions",
+      "willing_to_recommend"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-29T23:59:54.937590",
+    "updated_at": "2025-08-29T23:59:54.937592",
+    "is_active": true
+  },
+  {
+    "id": "2fd2d50f-6c71-4df6-978f-88c22717654d",
+    "user_id": "7c470e2b-6a6a-448c-b9c3-ab25fa984efa",
+    "name": "Sales Outreach Campaign",
+    "description": "A comprehensive sales campaign for product outreach",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. I hope you're having a great day. I'm reaching out because we have a special offer that I think would be perfect for your business. Do you have a moment to hear about it?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "needs_assessment": {
+        "script": "Great! To make sure I'm offering you the right solution, could you tell me a bit about your current business challenges? What's the biggest pain point you're facing right now?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "challenge",
+            "issue",
+            "need"
+          ],
+          "min_turns": 3
+        }
+      },
+      "solution_presentation": {
+        "script": "Based on what you've told me, I think our {product_name} would be perfect for you. It specifically addresses {pain_point} and has helped companies like yours increase their {benefit} by {percentage}. Would you like to hear more about how it works?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "how",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "objection_handling": {
+        "script": "I understand your concern about {objection}. Many of our customers had the same worry initially. However, {counter_argument}. Plus, we offer a {guarantee}. What do you think about that?",
+        "transition_rules": {
+          "keywords": [
+            "okay",
+            "good",
+            "interesting"
+          ],
+          "sentiment_threshold": 0.3
+        }
+      },
+      "closing": {
+        "script": "Perfect! I'd love to schedule a quick demo for you. When would be a good time? I have availability {available_times}. Also, what's the best email to send you the details?",
+        "transition_rules": {
+          "keywords": [
+            "schedule",
+            "demo",
+            "email"
+          ],
+          "min_turns": 2
+        }
+      }
+    },
+    "data_collection_fields": [
+      "name",
+      "email",
+      "company",
+      "pain_point",
+      "budget",
+      "decision_maker"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:18:40.769375",
+    "updated_at": "2025-08-30T00:18:40.769378",
+    "is_active": true
+  },
+  {
+    "id": "801b3098-f13a-44dc-b603-1ce42bea8a9a",
+    "user_id": "7c470e2b-6a6a-448c-b9c3-ab25fa984efa",
+    "name": "Customer Support Follow-up",
+    "description": "Support campaign for following up on customer issues",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} from {company_name} support. I'm calling to follow up on your recent {issue_type} ticket. How are you doing today?",
+        "transition_rules": {
+          "keywords": [
+            "fine",
+            "good",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "I see you reported an issue with {product_feature}. Can you walk me through what happened and what you were trying to do when the problem occurred?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "issue",
+            "error"
+          ],
+          "min_turns": 2
+        }
+      },
+      "solution_presentation": {
+        "script": "I understand the issue now. This is actually a known problem that we've identified and fixed. The solution involves {solution_steps}. Would you like me to walk you through the fix?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "please"
+          ],
+          "min_turns": 1
+        }
+      },
+      "closing": {
+        "script": "Great! I've documented this resolution in your ticket. Is there anything else I can help you with today? Also, would you like me to send you a follow-up email with the solution steps?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "issue_type",
+      "product_feature",
+      "resolution_satisfaction",
+      "additional_help_needed"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:18:40.771291",
+    "updated_at": "2025-08-30T00:18:40.771293",
+    "is_active": true
+  },
+  {
+    "id": "ad79b3ec-3bff-45a4-9f9e-981f26bd668d",
+    "user_id": "7c470e2b-6a6a-448c-b9c3-ab25fa984efa",
+    "name": "Customer Satisfaction Survey",
+    "description": "Survey campaign for gathering customer feedback",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. We're conducting a brief customer satisfaction survey and would really value your feedback. Do you have 2-3 minutes to help us improve our service?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "Thank you! First, how would you rate your overall satisfaction with our {product_name} on a scale of 1 to 10, where 10 is extremely satisfied?",
+        "transition_rules": {
+          "keywords": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "min_turns": 1
+        }
+      },
+      "solution_presentation": {
+        "script": "Thank you for that rating. What's the main reason for your rating? What could we do better to improve your experience?",
+        "transition_rules": {
+          "keywords": [
+            "because",
+            "reason",
+            "better"
+          ],
+          "min_turns": 2
+        }
+      },
+      "closing": {
+        "script": "Thank you so much for your valuable feedback! We really appreciate you taking the time to help us improve. Is there anything else you'd like to share with us?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "satisfaction_rating",
+      "feedback_reason",
+      "improvement_suggestions",
+      "willing_to_recommend"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:18:40.773128",
+    "updated_at": "2025-08-30T00:18:40.773129",
+    "is_active": true
+  },
+  {
+    "id": "1f1db143-4609-45e7-960a-bef15a0e394a",
+    "user_id": "cebc399f-e181-429b-9f68-26b82fd91aef",
+    "name": "Sales Outreach Campaign",
+    "description": "A comprehensive sales campaign for product outreach",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. I hope you're having a great day. I'm reaching out because we have a special offer that I think would be perfect for your business. Do you have a moment to hear about it?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "needs_assessment": {
+        "script": "Great! To make sure I'm offering you the right solution, could you tell me a bit about your current business challenges? What's the biggest pain point you're facing right now?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "challenge",
+            "issue",
+            "need"
+          ],
+          "min_turns": 3
+        }
+      },
+      "solution_presentation": {
+        "script": "Based on what you've told me, I think our {product_name} would be perfect for you. It specifically addresses {pain_point} and has helped companies like yours increase their {benefit} by {percentage}. Would you like to hear more about how it works?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "how",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "objection_handling": {
+        "script": "I understand your concern about {objection}. Many of our customers had the same worry initially. However, {counter_argument}. Plus, we offer a {guarantee}. What do you think about that?",
+        "transition_rules": {
+          "keywords": [
+            "okay",
+            "good",
+            "interesting"
+          ],
+          "sentiment_threshold": 0.3
+        }
+      },
+      "closing": {
+        "script": "Perfect! I'd love to schedule a quick demo for you. When would be a good time? I have availability {available_times}. Also, what's the best email to send you the details?",
+        "transition_rules": {
+          "keywords": [
+            "schedule",
+            "demo",
+            "email"
+          ],
+          "min_turns": 2
+        }
+      }
+    },
+    "data_collection_fields": [
+      "name",
+      "email",
+      "company",
+      "pain_point",
+      "budget",
+      "decision_maker"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:20:08.806188",
+    "updated_at": "2025-08-30T00:20:08.806190",
+    "is_active": true
+  },
+  {
+    "id": "6d3413f0-5e92-4593-b82d-4a1e56ea512e",
+    "user_id": "cebc399f-e181-429b-9f68-26b82fd91aef",
+    "name": "Customer Support Follow-up",
+    "description": "Support campaign for following up on customer issues",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} from {company_name} support. I'm calling to follow up on your recent {issue_type} ticket. How are you doing today?",
+        "transition_rules": {
+          "keywords": [
+            "fine",
+            "good",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "I see you reported an issue with {product_feature}. Can you walk me through what happened and what you were trying to do when the problem occurred?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "issue",
+            "error"
+          ],
+          "min_turns": 2
+        }
+      },
+      "solution_presentation": {
+        "script": "I understand the issue now. This is actually a known problem that we've identified and fixed. The solution involves {solution_steps}. Would you like me to walk you through the fix?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "please"
+          ],
+          "min_turns": 1
+        }
+      },
+      "closing": {
+        "script": "Great! I've documented this resolution in your ticket. Is there anything else I can help you with today? Also, would you like me to send you a follow-up email with the solution steps?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "issue_type",
+      "product_feature",
+      "resolution_satisfaction",
+      "additional_help_needed"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:20:08.808794",
+    "updated_at": "2025-08-30T00:20:08.808796",
+    "is_active": true
+  },
+  {
+    "id": "d5500616-1fc8-4813-ba20-0031a0584475",
+    "user_id": "cebc399f-e181-429b-9f68-26b82fd91aef",
+    "name": "Customer Satisfaction Survey",
+    "description": "Survey campaign for gathering customer feedback",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. We're conducting a brief customer satisfaction survey and would really value your feedback. Do you have 2-3 minutes to help us improve our service?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "Thank you! First, how would you rate your overall satisfaction with our {product_name} on a scale of 1 to 10, where 10 is extremely satisfied?",
+        "transition_rules": {
+          "keywords": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "min_turns": 1
+        }
+      },
+      "solution_presentation": {
+        "script": "Thank you for that rating. What's the main reason for your rating? What could we do better to improve your experience?",
+        "transition_rules": {
+          "keywords": [
+            "because",
+            "reason",
+            "better"
+          ],
+          "min_turns": 2
+        }
+      },
+      "closing": {
+        "script": "Thank you so much for your valuable feedback! We really appreciate you taking the time to help us improve. Is there anything else you'd like to share with us?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "satisfaction_rating",
+      "feedback_reason",
+      "improvement_suggestions",
+      "willing_to_recommend"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:20:08.810717",
+    "updated_at": "2025-08-30T00:20:08.810719",
+    "is_active": true
+  },
+  {
+    "id": "10de999d-51a5-4ed3-b044-b076a4f0a930",
+    "user_id": "180c06ed-be05-47bb-af50-3cd02628c39f",
+    "name": "Sales Outreach Campaign",
+    "description": "A comprehensive sales campaign for product outreach",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. I hope you're having a great day. I'm reaching out because we have a special offer that I think would be perfect for your business. Do you have a moment to hear about it?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "needs_assessment": {
+        "script": "Great! To make sure I'm offering you the right solution, could you tell me a bit about your current business challenges? What's the biggest pain point you're facing right now?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "challenge",
+            "issue",
+            "need"
+          ],
+          "min_turns": 3
+        }
+      },
+      "solution_presentation": {
+        "script": "Based on what you've told me, I think our {product_name} would be perfect for you. It specifically addresses {pain_point} and has helped companies like yours increase their {benefit} by {percentage}. Would you like to hear more about how it works?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "how",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "objection_handling": {
+        "script": "I understand your concern about {objection}. Many of our customers had the same worry initially. However, {counter_argument}. Plus, we offer a {guarantee}. What do you think about that?",
+        "transition_rules": {
+          "keywords": [
+            "okay",
+            "good",
+            "interesting"
+          ],
+          "sentiment_threshold": 0.3
+        }
+      },
+      "closing": {
+        "script": "Perfect! I'd love to schedule a quick demo for you. When would be a good time? I have availability {available_times}. Also, what's the best email to send you the details?",
+        "transition_rules": {
+          "keywords": [
+            "schedule",
+            "demo",
+            "email"
+          ],
+          "min_turns": 2
+        }
+      }
+    },
+    "data_collection_fields": [
+      "name",
+      "email",
+      "company",
+      "pain_point",
+      "budget",
+      "decision_maker"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:20:41.811237",
+    "updated_at": "2025-08-30T00:20:41.811246",
+    "is_active": true
+  },
+  {
+    "id": "5a641b33-3f86-4841-9611-b1b033038212",
+    "user_id": "180c06ed-be05-47bb-af50-3cd02628c39f",
+    "name": "Customer Support Follow-up",
+    "description": "Support campaign for following up on customer issues",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} from {company_name} support. I'm calling to follow up on your recent {issue_type} ticket. How are you doing today?",
+        "transition_rules": {
+          "keywords": [
+            "fine",
+            "good",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "I see you reported an issue with {product_feature}. Can you walk me through what happened and what you were trying to do when the problem occurred?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "issue",
+            "error"
+          ],
+          "min_turns": 2
+        }
+      },
+      "solution_presentation": {
+        "script": "I understand the issue now. This is actually a known problem that we've identified and fixed. The solution involves {solution_steps}. Would you like me to walk you through the fix?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "please"
+          ],
+          "min_turns": 1
+        }
+      },
+      "closing": {
+        "script": "Great! I've documented this resolution in your ticket. Is there anything else I can help you with today? Also, would you like me to send you a follow-up email with the solution steps?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "issue_type",
+      "product_feature",
+      "resolution_satisfaction",
+      "additional_help_needed"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:20:41.814157",
+    "updated_at": "2025-08-30T00:20:41.814159",
+    "is_active": true
+  },
+  {
+    "id": "d63b5a9d-fc7a-4b96-8680-2c4968dd693c",
+    "user_id": "180c06ed-be05-47bb-af50-3cd02628c39f",
+    "name": "Customer Satisfaction Survey",
+    "description": "Survey campaign for gathering customer feedback",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. We're conducting a brief customer satisfaction survey and would really value your feedback. Do you have 2-3 minutes to help us improve our service?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "Thank you! First, how would you rate your overall satisfaction with our {product_name} on a scale of 1 to 10, where 10 is extremely satisfied?",
+        "transition_rules": {
+          "keywords": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "min_turns": 1
+        }
+      },
+      "solution_presentation": {
+        "script": "Thank you for that rating. What's the main reason for your rating? What could we do better to improve your experience?",
+        "transition_rules": {
+          "keywords": [
+            "because",
+            "reason",
+            "better"
+          ],
+          "min_turns": 2
+        }
+      },
+      "closing": {
+        "script": "Thank you so much for your valuable feedback! We really appreciate you taking the time to help us improve. Is there anything else you'd like to share with us?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "satisfaction_rating",
+      "feedback_reason",
+      "improvement_suggestions",
+      "willing_to_recommend"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:20:41.817115",
+    "updated_at": "2025-08-30T00:20:41.817119",
+    "is_active": true
+  },
+  {
+    "id": "21fe2f6b-0d26-4c6f-9db8-38cbb1f52ddd",
+    "user_id": "db68838d-e10d-46f2-8c91-1ed40077453e",
+    "name": "Sales Outreach Campaign",
+    "description": "A comprehensive sales campaign for product outreach",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. I hope you're having a great day. I'm reaching out because we have a special offer that I think would be perfect for your business. Do you have a moment to hear about it?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "needs_assessment": {
+        "script": "Great! To make sure I'm offering you the right solution, could you tell me a bit about your current business challenges? What's the biggest pain point you're facing right now?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "challenge",
+            "issue",
+            "need"
+          ],
+          "min_turns": 3
+        }
+      },
+      "solution_presentation": {
+        "script": "Based on what you've told me, I think our {product_name} would be perfect for you. It specifically addresses {pain_point} and has helped companies like yours increase their {benefit} by {percentage}. Would you like to hear more about how it works?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "how",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "objection_handling": {
+        "script": "I understand your concern about {objection}. Many of our customers had the same worry initially. However, {counter_argument}. Plus, we offer a {guarantee}. What do you think about that?",
+        "transition_rules": {
+          "keywords": [
+            "okay",
+            "good",
+            "interesting"
+          ],
+          "sentiment_threshold": 0.3
+        }
+      },
+      "closing": {
+        "script": "Perfect! I'd love to schedule a quick demo for you. When would be a good time? I have availability {available_times}. Also, what's the best email to send you the details?",
+        "transition_rules": {
+          "keywords": [
+            "schedule",
+            "demo",
+            "email"
+          ],
+          "min_turns": 2
+        }
+      }
+    },
+    "data_collection_fields": [
+      "name",
+      "email",
+      "company",
+      "pain_point",
+      "budget",
+      "decision_maker"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:21:28.950395",
+    "updated_at": "2025-08-30T00:21:28.950397",
+    "is_active": true
+  },
+  {
+    "id": "95de4a5f-7526-449c-82da-d6fe4c205bca",
+    "user_id": "db68838d-e10d-46f2-8c91-1ed40077453e",
+    "name": "Customer Support Follow-up",
+    "description": "Support campaign for following up on customer issues",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} from {company_name} support. I'm calling to follow up on your recent {issue_type} ticket. How are you doing today?",
+        "transition_rules": {
+          "keywords": [
+            "fine",
+            "good",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "I see you reported an issue with {product_feature}. Can you walk me through what happened and what you were trying to do when the problem occurred?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "issue",
+            "error"
+          ],
+          "min_turns": 2
+        }
+      },
+      "solution_presentation": {
+        "script": "I understand the issue now. This is actually a known problem that we've identified and fixed. The solution involves {solution_steps}. Would you like me to walk you through the fix?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "please"
+          ],
+          "min_turns": 1
+        }
+      },
+      "closing": {
+        "script": "Great! I've documented this resolution in your ticket. Is there anything else I can help you with today? Also, would you like me to send you a follow-up email with the solution steps?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "issue_type",
+      "product_feature",
+      "resolution_satisfaction",
+      "additional_help_needed"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:21:28.953973",
+    "updated_at": "2025-08-30T00:21:28.953975",
+    "is_active": true
+  },
+  {
+    "id": "fd5393ef-befe-497c-8367-d7a53d4ccbae",
+    "user_id": "db68838d-e10d-46f2-8c91-1ed40077453e",
+    "name": "Customer Satisfaction Survey",
+    "description": "Survey campaign for gathering customer feedback",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. We're conducting a brief customer satisfaction survey and would really value your feedback. Do you have 2-3 minutes to help us improve our service?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "Thank you! First, how would you rate your overall satisfaction with our {product_name} on a scale of 1 to 10, where 10 is extremely satisfied?",
+        "transition_rules": {
+          "keywords": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "min_turns": 1
+        }
+      },
+      "solution_presentation": {
+        "script": "Thank you for that rating. What's the main reason for your rating? What could we do better to improve your experience?",
+        "transition_rules": {
+          "keywords": [
+            "because",
+            "reason",
+            "better"
+          ],
+          "min_turns": 2
+        }
+      },
+      "closing": {
+        "script": "Thank you so much for your valuable feedback! We really appreciate you taking the time to help us improve. Is there anything else you'd like to share with us?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "satisfaction_rating",
+      "feedback_reason",
+      "improvement_suggestions",
+      "willing_to_recommend"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:21:28.957123",
+    "updated_at": "2025-08-30T00:21:28.957126",
+    "is_active": true
+  },
+  {
+    "id": "6b17d3bc-ad50-448e-a351-56a94e43f390",
+    "user_id": "3157f9b8-a44c-48fb-a348-0d1b629e4c47",
+    "name": "Sales Outreach Campaign",
+    "description": "A comprehensive sales campaign for product outreach",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. I hope you're having a great day. I'm reaching out because we have a special offer that I think would be perfect for your business. Do you have a moment to hear about it?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "needs_assessment": {
+        "script": "Great! To make sure I'm offering you the right solution, could you tell me a bit about your current business challenges? What's the biggest pain point you're facing right now?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "challenge",
+            "issue",
+            "need"
+          ],
+          "min_turns": 3
+        }
+      },
+      "solution_presentation": {
+        "script": "Based on what you've told me, I think our {product_name} would be perfect for you. It specifically addresses {pain_point} and has helped companies like yours increase their {benefit} by {percentage}. Would you like to hear more about how it works?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "how",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "objection_handling": {
+        "script": "I understand your concern about {objection}. Many of our customers had the same worry initially. However, {counter_argument}. Plus, we offer a {guarantee}. What do you think about that?",
+        "transition_rules": {
+          "keywords": [
+            "okay",
+            "good",
+            "interesting"
+          ],
+          "sentiment_threshold": 0.3
+        }
+      },
+      "closing": {
+        "script": "Perfect! I'd love to schedule a quick demo for you. When would be a good time? I have availability {available_times}. Also, what's the best email to send you the details?",
+        "transition_rules": {
+          "keywords": [
+            "schedule",
+            "demo",
+            "email"
+          ],
+          "min_turns": 2
+        }
+      }
+    },
+    "data_collection_fields": [
+      "name",
+      "email",
+      "company",
+      "pain_point",
+      "budget",
+      "decision_maker"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:22:06.023149",
+    "updated_at": "2025-08-30T00:22:06.023151",
+    "is_active": true
+  },
+  {
+    "id": "5d3fcc84-e6f1-46e7-9ba7-dd8330c84808",
+    "user_id": "3157f9b8-a44c-48fb-a348-0d1b629e4c47",
+    "name": "Customer Support Follow-up",
+    "description": "Support campaign for following up on customer issues",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} from {company_name} support. I'm calling to follow up on your recent {issue_type} ticket. How are you doing today?",
+        "transition_rules": {
+          "keywords": [
+            "fine",
+            "good",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "I see you reported an issue with {product_feature}. Can you walk me through what happened and what you were trying to do when the problem occurred?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "issue",
+            "error"
+          ],
+          "min_turns": 2
+        }
+      },
+      "solution_presentation": {
+        "script": "I understand the issue now. This is actually a known problem that we've identified and fixed. The solution involves {solution_steps}. Would you like me to walk you through the fix?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "please"
+          ],
+          "min_turns": 1
+        }
+      },
+      "closing": {
+        "script": "Great! I've documented this resolution in your ticket. Is there anything else I can help you with today? Also, would you like me to send you a follow-up email with the solution steps?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "issue_type",
+      "product_feature",
+      "resolution_satisfaction",
+      "additional_help_needed"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:22:06.026766",
+    "updated_at": "2025-08-30T00:22:06.026768",
+    "is_active": true
+  },
+  {
+    "id": "dc344473-d613-4cbd-94fd-7d2b3b17e597",
+    "user_id": "3157f9b8-a44c-48fb-a348-0d1b629e4c47",
+    "name": "Customer Satisfaction Survey",
+    "description": "Survey campaign for gathering customer feedback",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. We're conducting a brief customer satisfaction survey and would really value your feedback. Do you have 2-3 minutes to help us improve our service?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "Thank you! First, how would you rate your overall satisfaction with our {product_name} on a scale of 1 to 10, where 10 is extremely satisfied?",
+        "transition_rules": {
+          "keywords": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "min_turns": 1
+        }
+      },
+      "solution_presentation": {
+        "script": "Thank you for that rating. What's the main reason for your rating? What could we do better to improve your experience?",
+        "transition_rules": {
+          "keywords": [
+            "because",
+            "reason",
+            "better"
+          ],
+          "min_turns": 2
+        }
+      },
+      "closing": {
+        "script": "Thank you so much for your valuable feedback! We really appreciate you taking the time to help us improve. Is there anything else you'd like to share with us?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "satisfaction_rating",
+      "feedback_reason",
+      "improvement_suggestions",
+      "willing_to_recommend"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-08-30T00:22:06.029903",
+    "updated_at": "2025-08-30T00:22:06.029905",
+    "is_active": true
   }
 ]

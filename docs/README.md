@@ -1,34 +1,61 @@
 # Local Voice Chat MVP with Tool-use and Memory
 
-A voice-based chat application that allows users to interact with an AI assistant using speech. The application leverages OpenAI's [Whisper small](https://huggingface.co/openai/whisper-small) for accurate speech recognition and [Kokoro-TTS](https://huggingface.co/hexgrad/Kokoro-82M) for natural-sounding voice synthesis. You can use a [LM Studio local model](https://lms.dev/) that needs to be served at http://localhost:1234 to generate response. Requires meta-llama-3.1-8b-instruct for tool-use. Works great on Macbook M1 Pro, but Linux works too.  
+A voice-based chat application that allows users to interact with an AI assistant using speech. The application leverages OpenAI's [Whisper small](https://huggingface.co/openai/whisper-small) for accurate speech recognition and [Kokoro-TTS](https://huggingface.co/hexgrad/Kokoro-82M) for natural-sounding voice synthesis. It uses [Ollama](https://ollama.ai/) for local LLM inference, supporting various models like Llama 2, Mistral, and Phi-3.
 
-**Use python3.12 to run this application, because of PyTorch dependency**.
+**Requirements**:
+- Python 3.12 (required for PyTorch compatibility)
+- Ollama installed and running locally
+- At least 8GB RAM (16GB recommended for larger models)
 
-Hacked together with Claude and Cursor. 
+## Features
+
+- 🎙️ Real-time speech-to-text with Whisper
+- 🤖 Local LLM inference with Ollama
+- 🗣️ Natural-sounding text-to-speech with Kokoro-TTS
+- 🛠️ Tool use and memory capabilities
+- 🏠 100% local - no data leaves your machine
 
 ## Quick Start
 
-1. Clone the repository:
+1. **Install Ollama**
+   - Linux/macOS:
+     ```bash
+     curl -fsSL https://ollama.com/install.sh | sh
+     ```
+   - Windows (PowerShell):
+     ```powershell
+     winget install ollama.ollama
+     ```
+
+2. **Download a Model**
    ```bash
-   $ git clone https://github.com/jpzk/voicemvp.git
-   $ cd voicemvp
+   ollama pull llama2  # or mistral, phi3, etc.
    ```
 
-2. Install system dependencies (macOS):
+3. **Install System Dependencies**
+   - macOS:
+     ```bash
+     brew install portaudio
+     ```
+   - Ubuntu/Debian:
+     ```bash
+     sudo apt-get install portaudio19-dev python3-pyaudio
+     ```
+
+4. **Set Up Python Environment**
    ```bash
-   $ brew install portaudio
+   python3.12 -m venv env
+   source env/bin/activate  # On Windows: .\env\Scripts\activate
+   pip install -r requirements.txt
    ```
 
-3. Install dependencies:
+5. **Run the Application**
    ```bash
-   $ python3.12 -m venv env
-   $ source env/bin/activate
-   $ python3.12 -m pip install -r requirements.txt
+   python voice_chat_agent.py
    ```
 
-4. Run the application:
+   Or start the web interface:
    ```bash
-   $ python3.12 voice_chat_agent.py
+   python apis/call_agent_api.py
    ```
-
-5. The first run might take a while as it needs to download the models.
+   Then visit http://localhost:5000 in your browser

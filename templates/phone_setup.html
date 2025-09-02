@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Call Agent Pro - Phone Setup</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="phone-setup-page" data-theme="dark">
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+    <div class="phone-setup-container">
+        <div class="setup-header">
+            <div class="brand">
+                <i class="fas fa-phone-alt"></i>
+                <h1>Phone Number Setup</h1>
+            </div>
+            <p>Configure your phone number to connect with Asterisk for making and receiving calls</p>
+        </div>
+
+        <div class="setup-card">
+            <div class="setup-icon">
+                <i class="fas fa-phone-volume"></i>
+            </div>
+            
+            <h2>Welcome, {{ user.full_name }}!</h2>
+            <p>To use Call Agent Pro, you need to configure your phone number. This will be used to:</p>
+            
+            <ul class="setup-benefits">
+                <li><i class="fas fa-phone"></i> Make outbound calls through Asterisk</li>
+                <li><i class="fas fa-phone-incoming"></i> Receive incoming calls</li>
+                <li><i class="fas fa-route"></i> Route calls to your AI agent</li>
+                <li><i class="fas fa-chart-line"></i> Track call analytics</li>
+            </ul>
+
+            <form id="phoneSetupForm" class="setup-form">
+                <div class="form-group">
+                    <label for="phone-number">
+                        <i class="fas fa-phone"></i>
+                        Your Phone Number
+                    </label>
+                    <input 
+                        type="tel" 
+                        id="phone-number" 
+                        name="phone_number" 
+                        required 
+                        placeholder="+1234567890"
+                        pattern="^\+?1?\d{9,15}$"
+                    />
+                    <small class="form-help">Enter your phone number in international format (e.g., +1234567890)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="asterisk-server">
+                        <i class="fas fa-server"></i>
+                        Asterisk Server (Optional)
+                    </label>
+                    <input 
+                        type="text" 
+                        id="asterisk-server" 
+                        name="asterisk_server" 
+                        placeholder="asterisk.yourcompany.com"
+                    />
+                    <small class="form-help">Leave blank to use default server configuration</small>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i class="fas fa-check"></i>
+                    Complete Setup
+                </button>
+            </form>
+
+            <div class="setup-info">
+                <h3><i class="fas fa-info-circle"></i> Why is this required?</h3>
+                <p>Call Agent Pro integrates with Asterisk PBX systems to enable AI-powered calling. Your phone number acts as your unique identifier in the system and allows the AI to make and receive calls on your behalf.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('phoneSetupForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = {
+                phone_number: formData.get('phone_number')
+            };
+
+            try {
+                const response = await fetch('/auth/profile/phone', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Redirect to main dashboard
+                    window.location.href = '/';
+                } else {
+                    alert(result.error || 'Phone setup failed');
+                }
+            } catch (error) {
+                alert('Phone setup failed. Please try again.');
+            }
+        });
+
+        // Phone number validation
+        document.getElementById('phone-number').addEventListener('input', function(e) {
+            const phone = e.target.value;
+            const isValid = /^\+?1?\d{9,15}$/.test(phone);
+            
+            if (phone && !isValid) {
+                e.target.setCustomValidity('Please enter a valid phone number');
+            } else {
+                e.target.setCustomValidity('');
+            }
+        });
+
+        // Dark mode toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or default to dark
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                icon.className = 'fas fa-moon';
+                icon.title = 'Switch to Light Mode';
+            } else {
+                icon.className = 'fas fa-sun';
+                icon.title = 'Switch to Dark Mode';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -6,14 +6,17 @@
     "first_name": "John",
     "last_name": "Smith",
     "company_name": "Tech Solutions Inc.",
-    "phone_number": null,
+    "phone_number": "+1234567890",
+    "phone_numbers": [
+      "+15551234567"
+    ],
     "status": "active",
     "plan": "free",
     "settings": {},
     "api_key": "-GYg5mW0R-W7MEQiHwGM2q0CMRD5pmjxA7ZbIyX4hOI",
     "created_at": "2025-08-28T03:09:10.377056",
-    "updated_at": "2025-08-28T03:09:10.377079",
-    "last_login_at": null
+    "updated_at": "2025-08-29T22:00:42.230052",
+    "last_login_at": "2025-08-29T22:00:42.230049"
   },
   {
     "id": "004773f5-e8e3-4ab2-b05f-3bb3c7f04023",
@@ -110,5 +113,41 @@
     "created_at": "2025-08-28T20:34:48.065215",
     "updated_at": "2025-08-28T20:35:06.447009",
     "last_login_at": "2025-08-28T20:35:06.447007"
+  },
+  {
+    "id": "72116572-58e9-4c92-9361-01b358005b87",
+    "email": "test@template.com",
+    "password_hash": "test_hash",
+    "first_name": null,
+    "last_name": null,
+    "company_name": null,
+    "phone_number": null,
+    "phone_numbers": [
+      "+1234567890"
+    ],
+    "status": "active",
+    "plan": "free",
+    "settings": {},
+    "api_key": null,
+    "created_at": "2025-08-29T19:50:44.161833",
+    "updated_at": "2025-08-29T19:50:44.161837",
+    "last_login_at": null
+  },
+  {
+    "id": "3157f9b8-a44c-48fb-a348-0d1b629e4c47",
+    "email": "demo@example.com",
+    "password_hash": "d3ad9315b7be5dd53b31a273b3b3aba5defe700808305aa16a3062b76658a791",
+    "first_name": "Demo",
+    "last_name": "User",
+    "company_name": "Demo Company",
+    "phone_number": null,
+    "phone_numbers": [],
+    "status": "active",
+    "plan": "free",
+    "settings": {},
+    "api_key": "5wbwXbFRToZgSYqW0whW0OUkZRyF4Z52bnmtKtwtplc",
+    "created_at": "2025-08-30T00:22:06.019319",
+    "updated_at": "2025-08-30T00:22:06.019323",
+    "last_login_at": null
   }
 ]

@@ -1,0 +1,93 @@
+[
+  {
+    "id": "doc-001",
+    "user_id": "66baef9c-7477-4a83-a8e9-233c49ac8f4d",
+    "name": "Company Policy Document",
+    "content": "Company Name: TechCorp Solutions\n\nPolicy: We are committed to providing excellent customer service and maintaining the highest standards of professionalism in all our interactions. Our team members are trained to be courteous, knowledgeable, and helpful at all times.\n\nKey Policies:\n- Always greet customers warmly and introduce yourself\n- Listen actively to customer concerns\n- Provide accurate and helpful information\n- Follow up on customer requests promptly\n- Maintain confidentiality of customer information",
+    "document_type": "policy",
+    "tags": [
+      "company",
+      "policy",
+      "customer_service"
+    ],
+    "description": "Company policies and guidelines for customer interactions",
+    "is_active": true,
+    "created_at": "2025-01-28T10:00:00",
+    "updated_at": "2025-01-28T10:00:00"
+  },
+  {
+    "id": "doc-002",
+    "user_id": "66baef9c-7477-4a83-a8e9-233c49ac8f4d",
+    "name": "Product Information - Business Solution Pro",
+    "content": "Product Name: Business Solution Pro\n\nFeatures:\n- Advanced analytics and reporting\n- Real-time data synchronization\n- Customizable dashboards\n- Multi-user collaboration\n- Mobile app support\n- 24/7 customer support\n\nBenefits:\n- Increase productivity by 40%\n- Reduce operational costs by 25%\n- Improve decision making with real-time insights\n- Streamline workflow processes\n- Enhance team collaboration\n\nPricing:\n- Basic Plan: $99/month\n- Professional Plan: $199/month\n- Enterprise Plan: $399/month\n\nGuarantee: 30-day money-back guarantee with full support during trial period.",
+    "document_type": "product_info",
+    "tags": [
+      "product",
+      "features",
+      "pricing",
+      "sales"
+    ],
+    "description": "Comprehensive product information for Business Solution Pro",
+    "is_active": true,
+    "created_at": "2025-01-28T10:05:00",
+    "updated_at": "2025-01-28T10:05:00"
+  },
+  {
+    "id": "doc-003",
+    "user_id": "66baef9c-7477-4a83-a8e9-233c49ac8f4d",
+    "name": "Frequently Asked Questions",
+    "content": "Q: What is the setup process like?\nA: Our setup process is simple and takes only 15 minutes. We provide step-by-step guidance and our support team is available to help.\n\nQ: Can I integrate with my existing systems?\nA: Yes, Business Solution Pro integrates with most popular business software including Salesforce, QuickBooks, and Microsoft Office.\n\nQ: What kind of support do you provide?\nA: We offer 24/7 customer support via phone, email, and live chat. All plans include unlimited support.\n\nQ: Is there a free trial available?\nA: Yes, we offer a 30-day free trial with full access to all features. No credit card required.\n\nQ: Can I cancel anytime?\nA: Yes, you can cancel your subscription at any time with no cancellation fees.",
+    "document_type": "faq",
+    "tags": [
+      "faq",
+      "support",
+      "setup",
+      "integration"
+    ],
+    "description": "Common questions and answers about our products and services",
+    "is_active": true,
+    "created_at": "2025-01-28T10:10:00",
+    "updated_at": "2025-01-28T10:10:00"
+  },
+  {
+    "id": "doc-004",
+    "user_id": "66baef9c-7477-4a83-a8e9-233c49ac8f4d",
+    "name": "Sales Script Guidelines",
+    "content": "Introduction Stage:\n- Start with a warm greeting and introduction\n- Mention the company name and your name\n- Ask if they have a moment to discuss business solutions\n- Be respectful of their time\n\nNeeds Assessment Stage:\n- Ask open-ended questions about their current challenges\n- Listen actively and take notes\n- Identify pain points and business needs\n- Understand their current solutions and limitations\n\nSolution Presentation Stage:\n- Present relevant features based on their needs\n- Use specific examples and case studies\n- Highlight benefits that address their pain points\n- Ask for feedback and questions\n\nObjection Handling Stage:\n- Acknowledge their concerns\n- Provide specific counter-arguments\n- Use testimonials and social proof\n- Offer guarantees and risk-free trials\n\nClosing Stage:\n- Summarize the value proposition\n- Ask for commitment or next steps\n- Provide clear call-to-action\n- Confirm contact information and follow-up plan",
+    "document_type": "script",
+    "tags": [
+      "sales",
+      "script",
+      "guidelines",
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "description": "Guidelines and best practices for sales conversations",
+    "is_active": true,
+    "created_at": "2025-01-28T10:15:00",
+    "updated_at": "2025-01-28T10:15:00"
+  },
+  {
+    "id": "doc-005",
+    "user_id": "66baef9c-7477-4a83-a8e9-233c49ac8f4d",
+    "name": "Technical Knowledge Base",
+    "content": "System Requirements:\n- Windows 10/11 or macOS 10.15+\n- 8GB RAM minimum (16GB recommended)\n- 2GB free disk space\n- Internet connection for cloud features\n\nInstallation Process:\n1. Download the installer from our website\n2. Run the installer as administrator\n3. Follow the setup wizard\n4. Enter your license key when prompted\n5. Complete the initial configuration\n\nCommon Issues and Solutions:\n- If installation fails, check system requirements\n- For login issues, verify email and password\n- If sync fails, check internet connection\n- For performance issues, close other applications\n\nTroubleshooting Steps:\n1. Restart the application\n2. Check system resources\n3. Verify network connectivity\n4. Contact support if issues persist",
+    "document_type": "knowledge_base",
+    "tags": [
+      "technical",
+      "installation",
+      "troubleshooting",
+      "support"
+    ],
+    "description": "Technical documentation and troubleshooting guides",
+    "is_active": true,
+    "created_at": "2025-01-28T10:20:00",
+    "updated_at": "2025-01-28T10:20:00"
+  }
+]
+
+
+

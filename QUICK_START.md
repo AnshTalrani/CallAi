@@ -1,25 +1,32 @@
-# Quick Start Guide - Cloud LM Studio Setup
+# Quick Start Guide - Ollama Setup
 
 ## 🚀 Get Started in 3 Steps
 
-### 1. Configure Environment
-Run the setup script to configure your cloud LM Studio:
+### 1. Install Ollama
+First, install Ollama on your system:
+
+**Linux/macOS:**
 ```bash
-python setup.py
+curl -fsSL https://ollama.com/install.sh | sh
 ```
 
-This will prompt you for:
-- Your Cloud LM Studio API URL
-- API key (if required)
-- Model name
-- Other configuration options
+**Windows (PowerShell):**
+```powershell
+winget install ollama.ollama
+```
 
-### 2. Install Dependencies
+### 2. Download a Model
+Download a model (e.g., llama2, mistral, phi3):
+```bash
+ollama pull llama2
+```
+
+### 3. Install Python Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the App
+### 4. Run the App
 
 **Option A: Voice Chat (Command Line)**
 ```bash
@@ -32,20 +39,19 @@ python apis/call_agent_api.py
 ```
 Then visit: http://localhost:5000
 
-## 🔧 Manual Configuration
+## 🔧 Configuration
 
-If you prefer to configure manually, edit the `.env` file:
+You can customize the behavior by editing the `.env` file:
 
 ```env
 # LLM Configuration
-LLM_MODEL_NAME=meta-llama-3.1-8b-instruct
-LLM_API_BASE=https://your-cloud-lm-studio-url.com/v1
-LLM_API_KEY=your-api-key-here
+LLM_MODEL_NAME=llama2  # or any other model you've pulled with Ollama
+OLLAMA_BASE_URL=http://localhost:11434  # Change if running Ollama on a different host/port
 
 # Speech Recognition Configuration
-WHISPER_MODEL_SIZE=small
+WHISPER_MODEL_SIZE=small  # tiny, base, small, medium, large
 
-# Flask Application Configuration
+# Application Configuration
 SECRET_KEY=your-secret-key-change-this-in-production
 FLASK_ENV=development
 FLASK_DEBUG=1
@@ -55,13 +61,27 @@ API_HOST=0.0.0.0
 API_PORT=5000
 ```
 
-## 🌐 Cloud LM Studio Requirements
+## 🌐 Running Ollama in Production
 
-Your Cloud LM Studio instance should:
-- Support OpenAI-compatible API format
-- Have the `meta-llama-3.1-8b-instruct` model loaded
-- Be accessible via HTTPS
-- Accept API requests on the `/v1` endpoint
+For production use:
+1. Run Ollama as a service:
+   ```bash
+   sudo systemctl enable ollama
+   sudo systemctl start ollama
+   ```
+
+2. For remote access, configure the OLLAMA_HOST environment variable:
+   ```bash
+   # In /etc/systemd/system/ollama.service.d/environment.conf
+   [Service]
+   Environment="OLLAMA_HOST=0.0.0.0"
+   ```
+
+3. Restart the service:
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl restart ollama
+   ```
 
 ## 🎯 What's Ready Now
 

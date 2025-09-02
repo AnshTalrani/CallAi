@@ -12,11 +12,12 @@ torch>=2.1.2
 # LLM interaction
 langchain>=0.1.0
 langchain-community>=0.0.13
-# Note: LM Studio needs to be running locally on port 1234
 
 # Text to speech
 kokoro>=0.7.16  # Kokoro TTS library for voice generation
-openai>=1.6.1  # Required for Whisper model
+
+# LLM
+ollama>=0.1.0  # Ollama for local LLM inference
 
 # Information retrieval tools
 wikipedia>=1.4.0  # For Wikipedia API access
@@ -24,8 +25,21 @@ duckduckgo-search>=4.1.1  # For DuckDuckGo search capability
 
 pvrecorder==1.2.5
 
+# Audio utilities used by STT/TTS tests
+librosa>=0.11.0
+soundfile>=0.13.1
+
 # Multi-tenant CRM dependencies
 flask>=2.3.0  # For API server
 flask-cors>=4.0.0  # For CORS support
 flask-limiter>=3.5.0  # For rate limiting
 python-dotenv>=1.0.0  # For environment variable loading
+
+# Telephony integration for Asterisk
+asterisk-ari>=0.2.10
+asterisk-ami>=0.1.7
+
+# Telephony integration for FreeSWITCH
+# Prefer pure-python greenswitch; python-ESL (C bindings) optional if build env provides SWIG & headers
+greenswitch>=0.5
+python-ESL>=1.0 ; platform_system != "Windows"

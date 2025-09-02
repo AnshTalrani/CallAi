@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Call Agent Pro - Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="dashboard-page" data-theme="dark">
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+    <header class="app-header">
+        <div class="brand">
+            <i class="fas fa-phone-alt"></i>
+            <span>Call Agent Pro</span>
+        </div>
+        
+        <div class="user-info">
+            <span class="user-name">{{ user.full_name }}</span>
+            <span class="user-phone">{{ user.phone_number }}</span>
+        </div>
+        
+        <div class="header-actions">
+            <button class="btn btn-secondary" id="profileBtn">
+                <i class="fas fa-user-circle"></i>
+                Profile
+            </button>
+            <button class="btn btn-outline" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Quick Actions Section -->
+        <section class="quick-actions">
+            <h2><i class="fas fa-bolt"></i> Quick Actions</h2>
+            <div class="action-grid">
+                <button class="action-card" id="makeCallBtn">
+                    <i class="fas fa-phone"></i>
+                    <h3>Make Call</h3>
+                    <p>Start an AI-powered outbound call</p>
+                </button>
+                
+                <button class="action-card" id="createCampaignBtn">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>New Campaign</h3>
+                    <p>Create a calling campaign</p>
+                </button>
+                
+                <button class="action-card" id="manageContactsBtn">
+                    <i class="fas fa-users"></i>
+                    <h3>Manage Contacts</h3>
+                    <p>Add and organize contacts</p>
+                </button>
+                
+                <button class="action-card" id="viewAnalyticsBtn">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Analytics</h3>
+                    <p>View call performance data</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- Recent Activity Section -->
+        <section class="recent-activity">
+            <h2><i class="fas fa-clock"></i> Recent Activity</h2>
+            <div class="activity-list" id="activityList">
+                <div class="activity-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Welcome to Call Agent Pro! Start by creating your first campaign.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Campaigns Overview -->
+        <section class="campaigns-overview">
+            <h2><i class="fas fa-bullhorn"></i> Active Campaigns</h2>
+            <div class="campaigns-grid" id="campaignsGrid">
+                <div class="no-campaigns">
+                    <i class="fas fa-bullhorn"></i>
+                    <h3>No campaigns yet</h3>
+                    <p>Create your first campaign to start making AI-powered calls</p>
+                    <button class="btn btn-primary" id="createFirstCampaignBtn">
+                        <i class="fas fa-plus"></i>
+                        Create Campaign
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <!-- Make Call Modal -->
+    <div id="makeCallModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-phone"></i> Make a Call</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="makeCallForm">
+                    <div class="form-group">
+                        <label for="callPhoneNumber">Phone Number</label>
+                        <input type="tel" id="callPhoneNumber" required placeholder="+1234567890" />
+                    </div>
+                    <div class="form-group">
+                        <label for="callPurpose">Call Purpose</label>
+                        <select id="callPurpose" required>
+                            <option value="">Select purpose</option>
+                            <option value="sales">Sales Call</option>
+                            <option value="support">Customer Support</option>
+                            <option value="appointment">Appointment Booking</option>
+                            <option value="survey">Survey</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="callScript">Call Script (Optional)</label>
+                        <textarea id="callScript" placeholder="Enter custom script or leave blank for AI-generated script"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelCallBtn">Cancel</button>
+                <button class="btn btn-primary" id="startCallBtn">
+                    <i class="fas fa-phone"></i>
+                    Start Call
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Campaign Modal -->
+    <div id="createCampaignModal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3><i class="fas fa-bullhorn"></i> Create New Campaign</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createCampaignForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="campaignName">Campaign Name *</label>
+                            <input type="text" id="campaignName" required placeholder="e.g., Q4 Sales Campaign" />
+                        </div>
+                        <div class="form-group">
+                            <label for="campaignType">Campaign Type *</label>
+                            <select id="campaignType" required>
+                                <option value="">Select type</option>
+                                <option value="sales">Sales</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="support">Customer Support</option>
+                                <option value="appointment">Appointment Booking</option>
+                                <option value="survey">Survey</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="campaignDescription">Description</label>
+                        <textarea id="campaignDescription" placeholder="Describe your campaign goals and target audience"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="campaignStartDate">Start Date *</label>
+                            <input type="date" id="campaignStartDate" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="campaignEndDate">End Date</label>
+                            <input type="date" id="campaignEndDate" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="campaignTemplate">Use Template (Optional)</label>
+                        <select id="campaignTemplate">
+                            <option value="">No template</option>
+                            <option value="sales_template">Sales Template</option>
+                            <option value="support_template">Support Template</option>
+                            <option value="survey_template">Survey Template</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="campaignScript">Campaign Script</label>
+                        <textarea id="campaignScript" placeholder="Enter your campaign script or let AI generate one based on your goals"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="campaignContacts">Contact List</label>
+                        <select id="campaignContacts" multiple>
+                            <option value="all">All Contacts</option>
+                            <option value="new">New Contacts</option>
+                            <option value="active">Active Contacts</option>
+                        </select>
+                        <small>Select which contacts to include in this campaign</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelCampaignBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveCampaignBtn">
+                    <i class="fas fa-save"></i>
+                    Create Campaign
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-circle"></i> User Profile</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-info">
+                    <div class="profile-field">
+                        <label>Name:</label>
+                        <span>{{ user.full_name }}</span>
+                    </div>
+                    <div class="profile-field">
+                        <label>Email:</label>
+                        <span>{{ user.email }}</span>
+                    </div>
+                    <div class="profile-field">
+                        <label>Company:</label>
+                        <span>{{ user.company_name or 'Not specified' }}</span>
+                    </div>
+                    <div class="profile-field">
+                        <label>Phone Number:</label>
+                        <span>{{ user.phone_number }}</span>
+                    </div>
+                </div>
+                
+                <div class="profile-actions">
+                    <button class="btn btn-secondary" id="editProfileBtn">
+                        <i class="fas fa-edit"></i>
+                        Edit Profile
+                    </button>
+                    <button class="btn btn-outline" id="changePhoneBtn">
+                        <i class="fas fa-phone"></i>
+                        Change Phone Number
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+        
+        function hideModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Close modal when clicking close button or outside modal
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('.modal').style.display = 'none';
+            });
+        });
+        
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+
+        // Quick action buttons
+        document.getElementById('makeCallBtn').addEventListener('click', () => {
+            showModal('makeCallModal');
+        });
+        
+        document.getElementById('createCampaignBtn').addEventListener('click', () => {
+            showModal('createCampaignModal');
+        });
+        
+        document.getElementById('createFirstCampaignBtn').addEventListener('click', () => {
+            showModal('createCampaignModal');
+        });
+        
+        document.getElementById('manageContactsBtn').addEventListener('click', () => {
+            // Navigate to contacts page
+            window.location.href = '/contacts';
+        });
+        
+        document.getElementById('viewAnalyticsBtn').addEventListener('click', () => {
+            // Navigate to analytics page
+            window.location.href = '/analytics';
+        });
+        
+        document.getElementById('profileBtn').addEventListener('click', () => {
+            showModal('profileModal');
+        });
+        
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/auth/logout', { method: 'POST' });
+                if (response.ok) {
+                    window.location.href = '/login';
+                }
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        });
+
+        // Campaign creation
+        document.getElementById('saveCampaignBtn').addEventListener('click', async () => {
+            const form = document.getElementById('createCampaignForm');
+            const formData = new FormData(form);
+            
+            const campaignData = {
+                name: formData.get('campaignName'),
+                type: formData.get('campaignType'),
+                description: formData.get('campaignDescription'),
+                start_date: formData.get('campaignStartDate'),
+                end_date: formData.get('campaignEndDate'),
+                template: formData.get('campaignTemplate'),
+                script: formData.get('campaignScript'),
+                contacts: Array.from(formData.getAll('campaignContacts'))
+            };
+            
+            try {
+                const response = await fetch('/campaigns', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(campaignData)
+                });
+                
+                if (response.ok) {
+                    hideModal('createCampaignModal');
+                    alert('Campaign created successfully!');
+                    // Refresh campaigns list
+                    loadCampaigns();
+                } else {
+                    const error = await response.json();
+                    alert(error.error || 'Failed to create campaign');
+                }
+            } catch (error) {
+                alert('Failed to create campaign. Please try again.');
+            }
+        });
+
+        // Make call functionality
+        document.getElementById('startCallBtn').addEventListener('click', async () => {
+            const form = document.getElementById('makeCallForm');
+            const formData = new FormData(form);
+            
+            const callData = {
+                phone_number: formData.get('callPhoneNumber'),
+                purpose: formData.get('callPurpose'),
+                script: formData.get('callScript')
+            };
+            
+            try {
+                const response = await fetch('/calls/start', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(callData)
+                });
+                
+                if (response.ok) {
+                    hideModal('makeCallModal');
+                    alert('Call initiated successfully!');
+                } else {
+                    const error = await response.json();
+                    alert(error.error || 'Failed to start call');
+                }
+            } catch (error) {
+                alert('Failed to start call. Please try again.');
+            }
+        });
+
+        // Load campaigns on page load
+        async function loadCampaigns() {
+            try {
+                const response = await fetch('/campaigns');
+                if (response.ok) {
+                    const campaigns = await response.json();
+                    displayCampaigns(campaigns);
+                }
+            } catch (error) {
+                console.error('Failed to load campaigns:', error);
+            }
+        }
+
+        function displayCampaigns(campaigns) {
+            const grid = document.getElementById('campaignsGrid');
+            
+            if (campaigns.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-campaigns">
+                        <i class="fas fa-bullhorn"></i>
+                        <h3>No campaigns yet</h3>
+                        <p>Create your first campaign to start making AI-powered calls</p>
+                        <button class="btn btn-primary" id="createFirstCampaignBtn">
+                            <i class="fas fa-plus"></i>
+                            Create Campaign
+                        </button>
+                    </div>
+                `;
+                // Reattach event listener
+                document.getElementById('createFirstCampaignBtn').addEventListener('click', () => {
+                    showModal('createCampaignModal');
+                });
+                return;
+            }
+            
+            grid.innerHTML = campaigns.map(campaign => `
+                <div class="campaign-card">
+                    <div class="campaign-header">
+                        <h3>${campaign.name}</h3>
+                        <span class="campaign-status ${campaign.status.toLowerCase()}">${campaign.status}</span>
+                    </div>
+                    <p>${campaign.description || 'No description'}</p>
+                    <div class="campaign-meta">
+                        <span><i class="fas fa-calendar"></i> ${campaign.start_date}</span>
+                        <span><i class="fas fa-users"></i> ${campaign.contact_count || 0} contacts</span>
+                    </div>
+                    <div class="campaign-actions">
+                        <button class="btn btn-sm btn-primary" onclick="startCampaign('${campaign.id}')">
+                            <i class="fas fa-play"></i> Start
+                        </button>
+                        <button class="btn btn-sm btn-secondary" onclick="editCampaign('${campaign.id}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCampaigns();
+        });
+
+        // Dark mode toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or default to dark
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        body.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                icon.className = 'fas fa-moon';
+                icon.title = 'Switch to Light Mode';
+            } else {
+                icon.className = 'fas fa-sun';
+                icon.title = 'Switch to Dark Mode';
+            }
+        }
+    </script>
+</body>
+</html>

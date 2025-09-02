@@ -94,7 +94,7 @@ def test_all_models() -> Dict[str, Tuple[bool, str]]:
     print("This will test all three AI components:")
     print("1. Speech-to-Text (STT) - Whisper model")
     print("2. Text-to-Speech (TTS) - Kokoro model") 
-    print("3. Large Language Model (LLM) - LM Studio")
+    print("3. Large Language Model (LLM) - Ollama")
     print("="*60)
     
     # Test STT

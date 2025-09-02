@@ -1,14 +1,15 @@
-# Call Agent System
+# Call Agent System with Ollama
 
-A comprehensive call agent system that integrates LLM, STT, and TTS capabilities with CRM functionality and campaign management. This system allows you to conduct automated voice calls with intelligent conversation management, data collection, and campaign-driven behavior.
+A comprehensive call agent system that integrates local LLM (via [Ollama](https://ollama.ai/)), STT (Whisper), and TTS (Kokoro) capabilities with CRM functionality and campaign management. This system allows you to conduct automated voice calls with intelligent conversation management, data collection, and campaign-driven behavior - all running 100% locally on your machine.
 
 ## Features
 
 ### 🎯 Core Call Agent Features
 - **Voice Recognition**: Real-time speech-to-text using Whisper
-- **Natural Language Processing**: LLM-powered conversation intelligence
+- **Local LLM Integration**: Powered by Ollama for private, on-device processing
 - **Text-to-Speech**: Natural voice synthesis using Kokoro TTS
 - **Call Recording**: Automatic call recording and storage
+- **Model Flexibility**: Easily switch between different Ollama models (Llama 2, Mistral, Phi-3, etc.)
 
 ### 📊 CRM Integration
 - **Contact Management**: Store and manage contact information
@@ -29,17 +30,33 @@ A comprehensive call agent system that integrates LLM, STT, and TTS capabilities
 - **JSON Storage**: Simple file-based data storage
 - **Modular Architecture**: Easy to extend and customize
 
-## Quick Start
+## Local Development
 
-### 1. Installation
+1. **Prerequisites**
+   - Python 3.12
+   - [Ollama](https://ollama.ai/) installed and running
+   - At least one Ollama model downloaded (e.g., `llama2`)
+   - PortAudio (for audio processing)
 
-```bash
-# Install dependencies
-pip install -r requirements_call_agent.txt
-
-# Make sure LM Studio is running on port 1234
-# (Required for LLM functionality)
-```
+2. **Setup**
+   ```bash
+   # Clone the repository
+   git clone [your-repo-url]
+   cd call-ai
+   
+   # Create and activate virtual environment
+   python3.12 -m venv venv
+   source venv/bin/activate  # On Windows: .\venv\Scripts\activate
+   
+   # Install dependencies
+   pip install -r requirements_call_agent.txt
+   
+   # Start Ollama service (if not already running)
+   ollama serve &
+   
+   # Download a model (if not already done)
+   ollama pull llama2  # or mistral, phi3, etc.
+   ```
 
 ### 2. Basic Usage
 
@@ -242,18 +259,25 @@ The system uses JSON files for data storage in the `data/` directory:
 ### Utilities
 - `POST /sample-data` - Create sample data for testing
 
-## Configuration
+## Environment Variables
 
-### Environment Variables
-```bash
-# Optional: Set data directory
-DATA_DIR=./data
+Create a `.env` file with the following variables:
 
-# Optional: Set audio device
-AUDIO_DEVICE_ID=1
+```env
+# LLM Configuration (Ollama)
+LLM_MODEL_NAME=llama2  # or mistral, phi3, etc.
+OLLAMA_BASE_URL=http://localhost:11434  # Default Ollama URL
+
+# Speech Recognition
+WHISPER_MODEL_SIZE=small  # tiny, base, small, medium, large
+
+# Application
+FLASK_APP=apis/call_agent_api.py
+FLASK_ENV=development
+SECRET_KEY=your-secret-key-here
 ```
 
-### Campaign Customization
+## Campaign Customization
 
 You can customize campaigns by modifying the script templates:
 

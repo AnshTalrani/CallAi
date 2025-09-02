@@ -128,6 +128,14 @@
                         </form>
                     </div>
                 </div>
+                <div class="my-numbers-panel">
+                    <h3><i class="fas fa-phone"></i> My Phone Numbers</h3>
+                    <div id="myNumbersList"></div>
+                    <form id="addNumberForm" class="inline-form">
+                        <input type="text" id="addNumberInput" placeholder="+15551234567" class="form-control" required />
+                        <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Add</button>
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -155,6 +163,12 @@
                     <div class="control-group">
                         <label for="demoPhone">Phone Number:</label>
                         <input id="demoPhone" type="text" placeholder="+15551234567" class="form-control" />
+                    </div>
+                    <div class="control-group">
+                        <label for="demoFromNumber">Your Number (Caller ID):</label>
+                        <select id="demoFromNumber" class="form-control">
+                            <option value="">Select your number...</option>
+                        </select>
                     </div>
                     <div class="control-buttons">
                         <button id="startCallBtn" class="btn btn-primary">
@@ -271,6 +285,7 @@
                     <h2><i class="fas fa-users"></i> Customer Relationship Management</h2>
                     <p>Manage your customer interactions, automate data collection, and scrape customer information</p>
                 </div>
+                <div id="liveCallDashboard"></div>
                 
                 <div class="crm-content">
                     <div class="crm-stats">

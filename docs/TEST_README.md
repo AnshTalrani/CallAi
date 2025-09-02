@@ -48,7 +48,7 @@ python test_tts.py
 ```
 
 ### 3. Large Language Model (LLM) Test
-Tests the LangChain setup with LM Studio.
+Tests the LLM setup with Ollama.
 
 **Connection test (basic connectivity):**
 ```bash
@@ -83,8 +83,8 @@ Before running the tests, make sure you have:
    - Microphone for STT tests
    - Speakers/headphones for TTS tests
 
-3. **LM Studio running (for LLM tests):**
-   - LM Studio should be running on `http://192.168.1.6:1234`
+3. **Ollama running (for LLM tests):**
+   - LM Studio should be running on `http://localhost:11434`
    - Model `meta-llama-3.1-8b-instruct` should be loaded
 
 ## Test Results
@@ -92,7 +92,7 @@ Before running the tests, make sure you have:
 ### Success Indicators
 - ✅ **STT**: Whisper model loads and can transcribe audio
 - ✅ **TTS**: Kokoro model loads and can generate speech
-- ✅ **LLM**: LangChain connects to LM Studio and generates responses
+- ✅ **LLM**: LangChain connects to Ollama and generates responses
 
 ### Common Issues
 
@@ -107,7 +107,7 @@ Before running the tests, make sure you have:
 - **Memory errors**: Ensure sufficient RAM for model loading
 
 #### LLM Issues
-- **Connection refused**: Make sure LM Studio is running
+- **Connection refused**: Make sure Ollama is running
 - **Model not found**: Load the correct model in LM Studio
 - **API errors**: Check the API endpoint configuration
 

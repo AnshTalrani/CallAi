@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 """
 Simple test script for Large Language Model (LLM) functionality
-Tests the LangChain setup with LM Studio
+Tests the LLM setup with Ollama
 """
 
 import sys
 import time
-from llm_thinking import LLMThinker
+import sys
+import os
+
+# Add the project root to the Python path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from services.llm_thinking import LLMThinker
 
 def test_llm():
     """Test the LLM functionality"""
@@ -61,7 +68,53 @@ def test_llm():
         return True
         
     except Exception as e:
-        print(f"❌ LLM test FAILED with error: {e}")
+        print(f"Error testing LLM connection: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+def test_template_integration():
+    """Test LLM with template integration"""
+    print("=" * 50)
+    print("LLM Template Integration Test")
+    print("=" * 50)
+    
+    thinker = None
+    try:
+        # Initialize LLM
+        print("Initializing LLM with template context...")
+        thinker = LLMThinker()
+        
+        # Set template context
+        thinker.current_campaign_context = "Sales campaign for product outreach"
+        thinker.current_document_context = "Product information: Our solution helps businesses increase efficiency by 30%"
+        thinker.current_template_personality = "Professional and solution-oriented sales agent"
+        
+        print("✓ Template context set successfully!")
+        
+        # Test template-aware response
+        test_prompt = "Tell me about our product benefits"
+        print(f"\n🤖 Testing template-aware response for: '{test_prompt}'")
+        
+        response = thinker.get_response_with_context(
+            test_prompt,
+            campaign_context={
+                'campaign': {'name': 'Sales Campaign', 'purpose': 'sales'},
+                'template': {'llm_personality': {'name': 'Sarah', 'motive': 'Help customers'}},
+                'document_context': 'Product helps increase efficiency by 30%'
+            },
+            conversation_context={'current_stage': 'introduction'}
+        )
+        
+        if response and len(response.strip()) > 0:
+            print("✅ Template integration test PASSED!")
+            return True
+        else:
+            print("❌ Template integration test failed - empty response")
+            return False
+            
+    except Exception as e:
+        print(f"❌ Template integration test FAILED with error: {e}")
         return False
 
 def quick_llm_test():
@@ -78,7 +131,7 @@ def quick_llm_test():
         
         # Test model loading
         print("✓ LangChain setup successful!")
-        print("✓ LM Studio connection successful!")
+        print("✓ Ollama connection successful!")
         
         # Quick response test
         print("Testing response generation...")
@@ -105,28 +158,34 @@ def test_llm_connection():
     
     try:
         # Test basic connection
-        print("Testing LM Studio connection...")
-        print("Make sure LM Studio is running on http://192.168.1.6:1234")
+        print("Testing Ollama connection...")
+        print("Make sure Ollama is running on http://localhost:11434")
         
         # Try to create the chat model
-        from langchain.chat_models import ChatOpenAI
+        import ollama
         
-        chat = ChatOpenAI(
-            model_name="meta-llama-3.1-8b-instruct",
-            openai_api_base="http://192.168.1.6:1234/v1",
-            openai_api_key="not-needed",
-            streaming=False  # Disable streaming for connection test
-        )
+        # Initialize Ollama client
+        client = ollama.Client(host="http://localhost:11434")
+        
+        # Test connection by listing models
+        models = client.list()
+        if not models.get('models'):
+            print("No models found. Please make sure Ollama is running and models are pulled.")
+            return
         
         print("✓ Chat model created successfully!")
         
         # Test a simple call
         print("Testing simple API call...")
-        response = chat.invoke("Hello")
+        response = client.generate(
+            model="llama2",  # Use a default model that should be available
+            prompt="Hello"
+        )
         
-        if response and hasattr(response, 'content'):
+        if response and 'response' in response:
             print("✓ API call successful!")
             print("✓ LLM connection test PASSED!")
+            print(f"Response: {response['response']}")
             return True
         else:
             print("❌ API call failed")
@@ -135,9 +194,11 @@ def test_llm_connection():
     except Exception as e:
         print(f"❌ LLM connection test FAILED: {e}")
         print("\nTroubleshooting tips:")
-        print("1. Make sure LM Studio is running")
-        print("2. Check if the API endpoint is correct (http://192.168.1.6:1234)")
-        print("3. Verify the model is loaded in LM Studio")
+        print("1. Make sure Ollama is running (run 'ollama serve' in a terminal)")
+        print("2. Check if the Ollama API is accessible at http://localhost:11434")
+        print("3. Make sure you have at least one model downloaded (e.g., 'ollama pull llama2')")
+        print("4. If running in a container, ensure port 11434 is properly exposed")
+        print("5. Check Ollama logs for any errors")
         return False
 
 def interactive_llm_test():
@@ -194,10 +255,19 @@ if __name__ == "__main__":
             success = test_llm_connection()
         elif sys.argv[1] == "--interactive":
             success = interactive_llm_test()
+        elif sys.argv[1] == "--template":
+            success = test_template_integration()
         else:
-            print("Usage: python test_llm.py [--quick|--connection|--interactive]")
+            print("Usage: python test_llm.py [--quick|--connection|--interactive|--template]")
             sys.exit(1)
     else:
-        success = test_llm()
+        # Run both basic and template integration tests
+        print("Running basic LLM tests...")
+        success1 = test_llm()
+        
+        print("\nRunning template integration tests...")
+        success2 = test_template_integration()
+        
+        success = success1 and success2
     
     sys.exit(0 if success else 1)

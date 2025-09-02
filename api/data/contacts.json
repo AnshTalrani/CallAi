@@ -1,0 +1,53 @@
+[
+  {
+    "id": "b85f65e3-9380-4988-a39b-bbd441aed751",
+    "user_id": "ee8bca7c-1f7b-44c7-b552-a1a7630f6cef",
+    "phone_number": "+1234567890",
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com",
+    "company": "Tech Solutions Inc",
+    "status": "new",
+    "tags": [],
+    "custom_fields": {},
+    "preferred_timing": [],
+    "personality_assessment": null,
+    "notes": null,
+    "created_at": "2025-08-29T20:49:08.280613",
+    "updated_at": "2025-08-29T20:49:08.280616"
+  },
+  {
+    "id": "edd15978-3868-444e-a549-8f39a12edfc8",
+    "user_id": "ee8bca7c-1f7b-44c7-b552-a1a7630f6cef",
+    "phone_number": "+1987654321",
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "email": "jane.smith@business.com",
+    "company": "Business Corp",
+    "status": "new",
+    "tags": [],
+    "custom_fields": {},
+    "preferred_timing": [],
+    "personality_assessment": null,
+    "notes": null,
+    "created_at": "2025-08-29T20:49:08.281015",
+    "updated_at": "2025-08-29T20:49:08.281017"
+  },
+  {
+    "id": "fbf3a5ca-1057-4d66-a493-ff37f1a497c9",
+    "user_id": "ee8bca7c-1f7b-44c7-b552-a1a7630f6cef",
+    "phone_number": "+919131716117",
+    "first_name": "k8k",
+    "last_name": "i67i6i7i",
+    "email": "rgrg@gmail.com",
+    "company": "i888",
+    "status": "new",
+    "tags": [],
+    "custom_fields": {},
+    "preferred_timing": [],
+    "personality_assessment": null,
+    "notes": null,
+    "created_at": "2025-08-29T20:49:54.550294",
+    "updated_at": "2025-08-29T20:49:54.550296"
+  }
+]
