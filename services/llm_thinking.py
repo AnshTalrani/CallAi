@@ -103,27 +103,34 @@ class LLMThinker:
         print("LLM ready!")
 
     def get_response(self, text: str, context: Optional[Dict[str, Any]] = None) -> str:
-        """Get a response from the LLM with the given text input and optional context"""
+        """Return response using LangChain agent executor (preferred). Falls back to direct Ollama call on failure."""
         print("\nThinking...")
         try:
-            # Prepare the prompt with any context
-            prompt = self._prepare_prompt(text, context)
-            
-            # Generate response using Ollama
-            response = self.client.generate(
-                model=self.model_name,
-                prompt=prompt,
-                stream=False
-            )
-            
-            response_text = response.get('response', '').strip()
+            # LangChain Agent expects a dict-like input; merge any extra context
+            lc_input: Dict[str, Any] = {"input": text}
+            if context:
+                lc_input.update(context)
+
+            # Run through the Conversation-ReAct agent chain
+            response = self.agent_executor.run(lc_input)
+            response_text = response.strip() if isinstance(response, str) else str(response)
             print(f"\nAssistant: {response_text}")
             return response_text
-                
+
         except Exception as e:
-            error_msg = f"Error in get_response: {str(e)}"
-            print(error_msg)
-            return "I apologize, but I encountered an error. Could you rephrase your question?"
+            # Graceful degradation – log and try direct Ollama call
+            print(f"LangChain agent failed, falling back to direct Ollama call: {e}")
+            try:
+                prompt = self._prepare_prompt(text, context)
+                resp = self.client.generate(
+                    model=self.model_name,
+                    prompt=prompt,
+                    stream=False
+                )
+                return resp.get("response", "").strip()
+            except Exception as inner_err:
+                print(f"Fallback also failed: {inner_err}")
+                return "I apologize, but I'm experiencing technical difficulties."
     
     def _prepare_prompt(self, text, context=None):
         """Prepare the prompt with any additional context"""

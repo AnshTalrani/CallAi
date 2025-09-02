@@ -1,10 +1,36 @@
 import sys
 import os
-di
+from typing import Optional
 import numpy as np
 from transformers import WhisperProcessor, WhisperForConditionalGeneration
 import torch
-from pvrecorder import PvRecorder
+try:
+    from pvrecorder import PvRecorder  # type: ignore
+except ImportError:  # pragma: no cover – allow running without audio deps
+    import logging
+    logging.warning("PvRecorder not available – using dummy recorder. Audio will be disabled.")
+
+    class _DummyPvRecorder:  # noqa: D401
+        @staticmethod
+        def get_available_devices():
+            return ["DummyDevice"]
+
+        def __init__(self, *_, **__):
+            pass
+
+        def start(self):
+            pass
+
+        def stop(self):
+            pass
+
+        def read(self):
+            return [0] * 512
+
+        def delete(self):
+            pass
+
+    PvRecorder = _DummyPvRecorder
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -38,13 +64,17 @@ class VoiceRecognizer:
         self._setup_whisper()
         
     def _setup_recorder(self) -> None:
+        # Allow disabling audio completely via env var (useful in CI / server)
+        if os.getenv('DISABLE_AUDIO', '0') == '1':
+            logging.warning("Audio disabled via DISABLE_AUDIO=1 – recorder not initialized")
+            return
         try:
             self.recorder = PvRecorder(device_index=self.device_id, frame_length=self.frame_length)
             device_name = PvRecorder.get_available_devices()[self.device_id]
             logging.info(f"Using audio device: {device_name}")
         except Exception as e:
-            logging.error(f"Error setting up recorder: {e}")
-            raise
+            logging.error(f"Error setting up recorder: {e}. Continuing with no recorder.")
+            self.recorder = None
 
     def _setup_whisper(self) -> None:
         logging.info("Loading Whisper model...")

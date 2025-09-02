@@ -8,16 +8,13 @@ import wave
 import os
 
 from services.voice_recognition import VoiceRecognizer
-from services.llm_thinking import LLMThinker
 from services.text_to_speech import TTSGenerator
+from langchain_pipeline import CallLangChainPipeline
 import os
 
 # Dynamically select telephony backend based on env var TELEPHONY_BACKEND.
-_TELEPHONY_BACKEND = os.getenv("TELEPHONY_BACKEND", "asterisk").lower()
-if _TELEPHONY_BACKEND == "freeswitch":
-    from telephony.freeswitch_integration import FreeSwitchIntegration as TelephonyBackend  # noqa: E501
-else:
-    from telephony.asterisk_integration import AsteriskIntegration as TelephonyBackend  # noqa: E501
+_TELEPHONY_BACKEND = os.getenv("TELEPHONY_BACKEND", "freepbx").lower()
+from telephony.freepbx_integration import FreePBXIntegration as TelephonyBackend
 
 from crm.models.crm import Contact, Call, CallStatus, CampaignStage, ContactStatus
 from crm.repositories.contact_repository import ContactRepository
@@ -35,8 +32,9 @@ class CallAgent:
         
         # Initialize voice components
         self.recognizer = VoiceRecognizer(device_id)
-        self.thinker = LLMThinker()
+        # Legacy components kept for recording & playback; generation now via LangChain pipeline
         self.tts = TTSGenerator(default_voice='af_heart')
+        self.pipeline = CallLangChainPipeline()
         
         # Initialize repositories
         self.contact_repo = ContactRepository()
@@ -46,17 +44,12 @@ class CallAgent:
         self.campaign_manager = CampaignManager(user=user)
         
         # Initialize telephony backend
-        backend = os.environ.get('TELEPHONY_BACKEND', 'asterisk').lower()
-        if backend == 'freeswitch':
-            fs_host = os.environ.get('FS_HOST', '127.0.0.1')
-            fs_port = int(os.environ.get('FS_PORT', 8021))
-            fs_pass = os.environ.get('FS_PASS', 'ClueCon')
-            self.telephony = TelephonyBackend(fs_host, fs_port, fs_pass)
-        else:
-            ari_url = os.environ.get('ASTERISK_ARI_URL', 'http://localhost:8088/ari')
-            ari_user = os.environ.get('ASTERISK_ARI_USER', 'ariuser')
-            ari_pass = os.environ.get('ASTERISK_ARI_PASS', 'aripass')
-            self.telephony = TelephonyBackend(ari_url, ari_user, ari_pass)
+        # Telephony backend (FreePBX AMI)
+        pbx_host = os.environ.get('FREEPBX_HOST', '127.0.0.1')
+        pbx_port = int(os.environ.get('FREEPBX_AMI_PORT', 5038))
+        pbx_user = os.environ.get('FREEPBX_AMI_USER', 'admin')
+        pbx_pass = os.environ.get('FREEPBX_AMI_PASS', 'amp111')
+        self.telephony = TelephonyBackend(pbx_host, pbx_port, pbx_user, pbx_pass)
         # Backwards-compat alias (existing code uses self.asterisk_integration)
         self.asterisk_integration = self.telephony
         
@@ -458,6 +451,18 @@ class CallAgent:
                 stream.stop()
                 stream.close()
     
+    def run_campaign(self, campaign_id: str):
+        """Dial through all leads in a campaign sequentially"""
+        while True:
+            lead = self.contact_repo.get_next_lead(campaign_id)
+            if not lead:
+                print("No more leads – campaign completed")
+                break
+            ok = self.conduct_call(lead.id, campaign_id, lead.phone_number)
+            if not ok:
+                print("Call failed – skipping to next lead")
+                continue
+
     def conduct_call(self, contact_id: str, campaign_id: str, phone_number: str):
         """Conduct a complete call from start to finish"""
         if not self.start_call(contact_id, campaign_id, phone_number):
@@ -503,12 +508,31 @@ class CallAgent:
                         if not user_text.strip():
                             continue
                         
-                        # Process user input and get response
-                        response = self.process_user_input(user_text)
+                        # Run unified LangChain pipeline step
+                        step_out = self.pipeline.run_step(
+                            audio_data,
+                            self.current_campaign.id,
+                            {
+                                "call_context": self.call_context,
+                                "conversation_turns": len(self.current_conversation.transcript),
+                            },
+                        )
+                        response = step_out["response"]
                         print(f"\nAgent: {response}")
-                        
-                        # Speak response
-                        self.tts.generate_speech(response)
+                        # Play the TTS audio returned from the pipeline to avoid double synthesis
+                        tts_audio = step_out.get("tts_audio")
+                        if tts_audio:
+                            try:
+                                sd.play(np.frombuffer(tts_audio, dtype=np.float32), samplerate=24000, blocking=True)
+                                sd.wait()
+                            except Exception:
+                                # Fallback to local generation if playback fails
+                                self.tts.generate_speech(response)
+                        else:
+                            self.tts.generate_speech(response)
+                        # Break if pipeline signals end of call
+                        if step_out.get("call_finished"):
+                            break
                         
                     else:
                         print("\nNo audio detected, continuing...")
@@ -523,6 +547,7 @@ class CallAgent:
             # End call
             self.end_call(CallStatus.COMPLETED)
             self.stop_recording()
+            return True
             
         except Exception as e:
             print(f"Error conducting call: {e}")

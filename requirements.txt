@@ -35,11 +35,8 @@ flask-cors>=4.0.0  # For CORS support
 flask-limiter>=3.5.0  # For rate limiting
 python-dotenv>=1.0.0  # For environment variable loading
 
-# Telephony integration for Asterisk
-asterisk-ari>=0.2.10
+# Telephony integration for FreePBX (uses AMI)
 asterisk-ami>=0.1.7
-
-# Telephony integration for FreeSWITCH
-# Prefer pure-python greenswitch; python-ESL (C bindings) optional if build env provides SWIG & headers
-greenswitch>=0.5
-python-ESL>=1.0 ; platform_system != "Windows"
+pyst2>=0.8.1  # For AMI protocol handling
+pjsua2==2.13.1  # For SIP protocol support
+phonenumbers>=8.13.11  # For phone number parsing
