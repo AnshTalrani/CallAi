@@ -1,4 +1,122 @@
-[]
-
-
-
+[
+  {
+    "id": "c8376273-5fb2-4764-95c9-55171d9d352f",
+    "name": "Test Sales Campaign Template",
+    "description": "A test sales campaign template",
+    "version": "1.0",
+    "created_at": "2025-09-02T22:53:15.066711",
+    "updated_at": "2025-09-02T22:53:15.066713",
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "stage_instructions": {
+      "introduction": {
+        "stage_name": "introduction",
+        "primary_objective": "Build rapport and introduce the purpose of the call",
+        "secondary_objectives": [],
+        "key_questions": [
+          "How are you doing today?",
+          "Is this a good time to talk?"
+        ],
+        "success_criteria": [],
+        "failure_indicators": [],
+        "next_stage_conditions": {},
+        "fallback_actions": [],
+        "required_data": [],
+        "optional_data": [],
+        "script_template": "",
+        "transition_keywords": [],
+        "min_turns": 2,
+        "max_turns": 10,
+        "sentiment_threshold": 0.3
+      },
+      "needs_assessment": {
+        "stage_name": "needs_assessment",
+        "primary_objective": "Understand customer needs and pain points",
+        "secondary_objectives": [],
+        "key_questions": [
+          "What challenges are you currently facing?",
+          "What solutions have you tried before?"
+        ],
+        "success_criteria": [],
+        "failure_indicators": [],
+        "next_stage_conditions": {},
+        "fallback_actions": [],
+        "required_data": [],
+        "optional_data": [],
+        "script_template": "",
+        "transition_keywords": [],
+        "min_turns": 2,
+        "max_turns": 10,
+        "sentiment_threshold": 0.3
+      }
+    },
+    "nlp_extraction_rules": [
+      {
+        "field_name": "budget",
+        "extraction_type": "budget_range",
+        "keywords": [
+          "budget",
+          "cost",
+          "price",
+          "investment"
+        ],
+        "patterns": [],
+        "required": false,
+        "validation_rules": {},
+        "description": "",
+        "confidence_threshold": 0.7,
+        "fallback_value": null,
+        "extraction_priority": 1
+      }
+    ],
+    "analysis_rules": [],
+    "llm_personality": {
+      "name": "Professional Sales",
+      "personality_traits": [
+        "professional",
+        "assertive",
+        "confident"
+      ],
+      "communication_style": "professional",
+      "empathy_level": 4,
+      "assertiveness_level": 8,
+      "technical_depth": 5,
+      "humor_level": 3,
+      "formality_level": 5,
+      "motive": "sales",
+      "background_story": "",
+      "expertise_areas": [],
+      "conversation_goals": [],
+      "response_length_preference": "medium",
+      "tone_adjustment_rules": {}
+    },
+    "document_integration": {
+      "required_document_types": [
+        "pricing",
+        "product_specs"
+      ],
+      "optional_document_types": [],
+      "document_tags": [],
+      "context_extraction_rules": {},
+      "placeholder_mapping": {},
+      "knowledge_base_priority": 1
+    },
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "retry_attempts": 3,
+    "success_metrics": {},
+    "quality_assurance_rules": {},
+    "custom_settings": {},
+    "tags": [
+      "sales",
+      "outbound",
+      "test"
+    ],
+    "is_active": true
+  }
+]

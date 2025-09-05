@@ -125,7 +125,7 @@ class FreePBXIntegration:  # noqa: D101
     def send_dtmf(self, channel: str, dtmf: str) -> None:  # noqa: D401
         logging.info("[FreePBX] send_dtmf %s to %s (stub)", dtmf, channel)
 
-    def track_call_outcome(self, call_id: str, outcome: str, notes: str | None = None) -> None:  # noqa: D401,E501
+    def track_call_outcome(self, call_id: str, outcome: str, notes: Optional[str] = None) -> None:  # noqa: D401,E501
         logging.info("Call %s outcome: %s (%s)", call_id, outcome, notes)
 
     # ------------------------------------------------------------------

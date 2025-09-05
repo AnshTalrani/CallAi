@@ -11,7 +11,7 @@ commits.
 """
 from __future__ import annotations
 
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 import logging, json, os
 
 # ---------------------------------------------------------------------------
@@ -26,7 +26,7 @@ class STTChain:
         Whisper checkpoint size to load (tiny, base, small, medium, large).
     device : str, default auto GPU if available else CPU
     """
-    def __init__(self, model_size: str | None = None, device: str | None = None):
+    def __init__(self, model_size: Optional[str] = None, device: Optional[str] = None):
         import torch
         from transformers import WhisperProcessor, WhisperForConditionalGeneration
 
@@ -83,13 +83,13 @@ class NLPChain:
             "survey": ["survey", "questionnaire"],
         }
 
-    def _keyword_intent(self, transcript_l: str) -> str | None:
+    def _keyword_intent(self, transcript_l: str) -> Optional[str]:
         for name, kws in self.intent_rules.items():
             if any(k in transcript_l for k in kws):
                 return name
         return None
 
-    def run(self, transcript: str, campaign_id: str | None = None) -> Dict[str, Any]:
+    def run(self, transcript: str, campaign_id: Optional[str] = None) -> Dict[str, Any]:
         transcript_l = transcript.lower()
         intent = self._keyword_intent(transcript_l) or "unknown"
         stage = "introduction" if intent == "unknown" else "main"
@@ -146,7 +146,7 @@ class CampaignLoader:
         # In this context we don't have the authenticated user, so default.
         self.manager = CampaignManager()
 
-    def _to_stage_enum(self, stage: str | None) -> CampaignStage | None:
+    def _to_stage_enum(self, stage: Optional[str]) -> Optional[CampaignStage]:
         if not stage:
             return None
         try:
@@ -158,7 +158,7 @@ class CampaignLoader:
             except Exception:
                 return None
 
-    def run(self, campaign_id: str, stage: str | None = None) -> Dict[str, Any]:
+    def run(self, campaign_id: str, stage: Optional[str] = None) -> Dict[str, Any]:
         try:
             stage_enum = self._to_stage_enum(stage)
             ctx = self.manager.get_campaign_context(campaign_id, stage_enum, None)
@@ -187,7 +187,7 @@ class OrchestratorAgent:
         end_phrases = ["bye", "goodbye", "end call", "hang up", "thanks, that's all"]
         return any(p in transcript.lower() for p in end_phrases) or stage == "closing"
 
-    def _rule_next_stage(self, campaign_id: str | None, stage: str, transcript: str) -> str | None:
+    def _rule_next_stage(self, campaign_id: Optional[str], stage: str, transcript: str) -> Optional[str]:
         if not campaign_id:
             return None
         from crm.models.crm import CampaignStage as CS
@@ -269,7 +269,7 @@ class ResponderAgent:
         self.thinker = LLMThinker()
         self.cm = CampaignManager()
 
-    def _script_response(self, campaign, stage: str, context: Dict[str, Any], user_input: str) -> str | None:
+    def _script_response(self, campaign, stage: str, context: Dict[str, Any], user_input: str) -> Optional[str]:
         try:
             from crm.models.crm import CampaignStage as CS
             stage_enum = getattr(CS, stage.upper(), None)

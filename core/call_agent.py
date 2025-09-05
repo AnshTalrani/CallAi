@@ -78,7 +78,7 @@ class CallAgent:
         if self.is_recording:
             self.stop_recording()
     
-    def start_direct_call(self, phone_number: str, from_number: str | None = None) -> bool:
+    def start_direct_call(self, phone_number: str, from_number: Optional[str] = None) -> bool:
         """Originate a one-off call without requiring CRM context."""
         channel = self.asterisk_integration.originate_call(
             from_number=from_number or "anonymous",

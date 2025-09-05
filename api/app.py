@@ -110,9 +110,11 @@ def phone_setup_page():
 
 def validate_phone_number(phone_number: str) -> bool:
     """Validate phone number format"""
-    # Basic phone number validation
+    phone_number = phone_number.strip() if isinstance(phone_number, str) else ""
+
+    # Basic phone number validation (E.164 lenient)
     phone_pattern = re.compile(r'^\+?1?\d{9,15}$')
-    return bool(phone_pattern.match(phone_number))
+    return bool(phone_pattern.fullmatch(phone_number))
 
 def validate_email(email: str) -> bool:
     """Validate email format"""

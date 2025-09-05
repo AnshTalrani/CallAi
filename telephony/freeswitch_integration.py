@@ -64,7 +64,7 @@ class FreeSwitchIntegration:
         to_number: str,
         context: str = "public",
         extension: Optional[str] = None,
-        gateway: str | None = None,
+        gateway: Optional[str] = None,
         callback: Optional[Callable] = None,
     ):
         """Originate an outbound call.
@@ -115,5 +115,5 @@ class FreeSwitchIntegration:
     def send_dtmf(self, uuid: str, dtmf: str):
         self._run_bgapi(f"uuid_send_dtmf {uuid} {dtmf}")
 
-    def track_call_outcome(self, call_id: str, outcome: str, notes: str | None = None):
+    def track_call_outcome(self, call_id: str, outcome: str, notes: Optional[str] = None):
         logging.info("Call %s outcome: %s (%s)", call_id, outcome, notes)

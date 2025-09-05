@@ -2085,5 +2085,419 @@
     "created_at": "2025-08-30T00:22:06.029903",
     "updated_at": "2025-08-30T00:22:06.029905",
     "is_active": true
+  },
+  {
+    "id": "54fe5da9-e561-48df-817d-b8fa3ba865cf",
+    "user_id": "eee04784-2701-40a6-9d9f-568ff31c2b0e",
+    "name": "Test Campaign 20250902224933",
+    "description": "This is a test campaign created by the test script",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {},
+    "data_collection_fields": [],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-09-02T22:49:33.679818",
+    "updated_at": "2025-09-02T22:49:33.679818",
+    "is_active": true
+  },
+  {
+    "id": "a5cd24fc-00b4-45be-bd41-4a870026f74a",
+    "user_id": "eee04784-2701-40a6-9d9f-568ff31c2b0e",
+    "name": "Test Campaign 20250902224952",
+    "description": "This is a test campaign created by the test script",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {},
+    "data_collection_fields": [],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-09-02T22:49:52.261919",
+    "updated_at": "2025-09-02T22:49:52.261920",
+    "is_active": true
+  },
+  {
+    "id": "acbe85db-5867-437f-9cbe-3e22ce8980ae",
+    "user_id": "eee04784-2701-40a6-9d9f-568ff31c2b0e",
+    "name": "Test Campaign 20250902224959",
+    "description": "This is a test campaign created by the test script",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {},
+    "data_collection_fields": [],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-09-02T22:49:59.320195",
+    "updated_at": "2025-09-02T22:49:59.320196",
+    "is_active": true
+  },
+  {
+    "id": "6a034ffd-a0b7-4a40-8b45-2307af90e464",
+    "user_id": "eee04784-2701-40a6-9d9f-568ff31c2b0e",
+    "name": "Test Campaign 20250902225013",
+    "description": "This is a test campaign created by the test script",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {},
+    "data_collection_fields": [],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-09-02T22:50:13.242533",
+    "updated_at": "2025-09-02T22:50:13.242534",
+    "is_active": true
+  },
+  {
+    "id": "7f433211-4b49-4813-a22a-4bb9ddc410e5",
+    "user_id": "eee04784-2701-40a6-9d9f-568ff31c2b0e",
+    "name": "Test Campaign 20250902225027",
+    "description": "This is a test campaign created by the test script",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {},
+    "data_collection_fields": [],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-09-02T22:50:27.255967",
+    "updated_at": "2025-09-02T22:50:27.255969",
+    "is_active": true
+  },
+  {
+    "id": "16d76a2b-c0c4-436d-9a66-36dc7decd525",
+    "user_id": "eee04784-2701-40a6-9d9f-568ff31c2b0e",
+    "name": "Test Campaign 20250902225326",
+    "description": "This is a test campaign created by the test script",
+    "purpose": "sales",
+    "template_id": "c8376273-5fb2-4764-95c9-55171d9d352f",
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {},
+    "data_collection_fields": [],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-09-02T22:53:26.893356",
+    "updated_at": "2025-09-02T22:53:26.893357",
+    "is_active": true
+  },
+  {
+    "id": "d9479684-215c-462c-aee2-b6c90cae1749",
+    "user_id": "eee04784-2701-40a6-9d9f-568ff31c2b0e",
+    "name": "Sales Outreach Campaign",
+    "description": "A comprehensive sales campaign for product outreach",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "objection_handling",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. I hope you're having a great day. I'm reaching out because we have a special offer that I think would be perfect for your business. Do you have a moment to hear about it?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "needs_assessment": {
+        "script": "Great! To make sure I'm offering you the right solution, could you tell me a bit about your current business challenges? What's the biggest pain point you're facing right now?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "challenge",
+            "issue",
+            "need"
+          ],
+          "min_turns": 3
+        }
+      },
+      "solution_presentation": {
+        "script": "Based on what you've told me, I think our {product_name} would be perfect for you. It specifically addresses {pain_point} and has helped companies like yours increase their {benefit} by {percentage}. Would you like to hear more about how it works?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "how",
+            "tell me"
+          ],
+          "min_turns": 2
+        }
+      },
+      "objection_handling": {
+        "script": "I understand your concern about {objection}. Many of our customers had the same worry initially. However, {counter_argument}. Plus, we offer a {guarantee}. What do you think about that?",
+        "transition_rules": {
+          "keywords": [
+            "okay",
+            "good",
+            "interesting"
+          ],
+          "sentiment_threshold": 0.3
+        }
+      },
+      "closing": {
+        "script": "Perfect! I'd love to schedule a quick demo for you. When would be a good time? I have availability {available_times}. Also, what's the best email to send you the details?",
+        "transition_rules": {
+          "keywords": [
+            "schedule",
+            "demo",
+            "email"
+          ],
+          "min_turns": 2
+        }
+      }
+    },
+    "data_collection_fields": [
+      "name",
+      "email",
+      "company",
+      "pain_point",
+      "budget",
+      "decision_maker"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-09-04T16:05:04.018245",
+    "updated_at": "2025-09-04T16:05:04.018247",
+    "is_active": true
+  },
+  {
+    "id": "231971b9-d2d1-4942-8007-5c7b1389138e",
+    "user_id": "eee04784-2701-40a6-9d9f-568ff31c2b0e",
+    "name": "Customer Support Follow-up",
+    "description": "Support campaign for following up on customer issues",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} from {company_name} support. I'm calling to follow up on your recent {issue_type} ticket. How are you doing today?",
+        "transition_rules": {
+          "keywords": [
+            "fine",
+            "good",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "I see you reported an issue with {product_feature}. Can you walk me through what happened and what you were trying to do when the problem occurred?",
+        "transition_rules": {
+          "keywords": [
+            "problem",
+            "issue",
+            "error"
+          ],
+          "min_turns": 2
+        }
+      },
+      "solution_presentation": {
+        "script": "I understand the issue now. This is actually a known problem that we've identified and fixed. The solution involves {solution_steps}. Would you like me to walk you through the fix?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "please"
+          ],
+          "min_turns": 1
+        }
+      },
+      "closing": {
+        "script": "Great! I've documented this resolution in your ticket. Is there anything else I can help you with today? Also, would you like me to send you a follow-up email with the solution steps?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "issue_type",
+      "product_feature",
+      "resolution_satisfaction",
+      "additional_help_needed"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-09-04T16:05:04.022789",
+    "updated_at": "2025-09-04T16:05:04.022791",
+    "is_active": true
+  },
+  {
+    "id": "aeb72def-d14b-4255-b2fb-a83380cf9822",
+    "user_id": "eee04784-2701-40a6-9d9f-568ff31c2b0e",
+    "name": "Customer Satisfaction Survey",
+    "description": "Survey campaign for gathering customer feedback",
+    "purpose": "sales",
+    "template_id": null,
+    "stages": [
+      "introduction",
+      "needs_assessment",
+      "solution_presentation",
+      "closing"
+    ],
+    "script_template": {
+      "introduction": {
+        "script": "Hello! This is {agent_name} calling from {company_name}. We're conducting a brief customer satisfaction survey and would really value your feedback. Do you have 2-3 minutes to help us improve our service?",
+        "transition_rules": {
+          "keywords": [
+            "yes",
+            "sure",
+            "okay"
+          ],
+          "min_turns": 1
+        }
+      },
+      "needs_assessment": {
+        "script": "Thank you! First, how would you rate your overall satisfaction with our {product_name} on a scale of 1 to 10, where 10 is extremely satisfied?",
+        "transition_rules": {
+          "keywords": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+          ],
+          "min_turns": 1
+        }
+      },
+      "solution_presentation": {
+        "script": "Thank you for that rating. What's the main reason for your rating? What could we do better to improve your experience?",
+        "transition_rules": {
+          "keywords": [
+            "because",
+            "reason",
+            "better"
+          ],
+          "min_turns": 2
+        }
+      },
+      "closing": {
+        "script": "Thank you so much for your valuable feedback! We really appreciate you taking the time to help us improve. Is there anything else you'd like to share with us?",
+        "transition_rules": {
+          "keywords": [
+            "no",
+            "thanks",
+            "goodbye"
+          ],
+          "min_turns": 1
+        }
+      }
+    },
+    "data_collection_fields": [
+      "satisfaction_rating",
+      "feedback_reason",
+      "improvement_suggestions",
+      "willing_to_recommend"
+    ],
+    "nlp_extraction_rules": [],
+    "stage_behaviors": [],
+    "preferred_timing": [],
+    "customer_personality_targets": [],
+    "max_call_duration": 900,
+    "follow_up_delay_hours": 24,
+    "custom_tags": {},
+    "created_at": "2025-09-04T16:05:04.026927",
+    "updated_at": "2025-09-04T16:05:04.026930",
+    "is_active": true
   }
 ]
